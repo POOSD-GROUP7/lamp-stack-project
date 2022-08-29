@@ -61,7 +61,7 @@ body {
 
 #registerInputs {
     align-items: center;
-    display: flex;
+    display: none;
     gap: 1rem;
     width: 100%;
 }

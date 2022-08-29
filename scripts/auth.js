@@ -5,28 +5,35 @@ let userId = 0;
 let firstName = "";
 let lastName = "";
 
-// By default, Login will be selected upon page load
+// Get elements from the DOM
 let loginToggle = document.getElementById("loginToggle");
+let registerToggle = document.getElementById("registerToggle");
+let registerInputs = document.getElementById("registerInputs");
+let loginButton = document.getElementById("loginButton");
+let registerButton = document.getElementById("registerButton");
+
+// By default, Login will be selected upon page load
 loginToggle.classList.add("active");
 
 function setLogin() {
-  let loginToggle = document.getElementById("loginToggle");
-  let registerToggle = document.getElementById("registerToggle");
-  let registerInputs = document.getElementById("registerInputs");
+  // Modify the DOM to show login information
   loginToggle.classList.add("active");
   registerToggle.classList.remove("active");
   registerInputs.style.display = "none";
+  registerButton.style.display = "none";
+  loginButton.style.display = "block";
 }
 
 function setRegister() {
-  let loginToggle = document.getElementById("loginToggle");
-  let registerToggle = document.getElementById("registerToggle");
-  let registerInputs = document.getElementById("registerInputs");
+  // Modify the DOM to show register information
   loginToggle.classList.remove("active");
   registerToggle.classList.add("active");
   registerInputs.style.display = "flex";
+  loginButton.style.display = "none";
+  registerButton.style.display = "block";
 }
 
+// TODO: Implement the functionality below (From this point down, all the code was copy pasted from the class example)
 function doLogin() {
   userId = 0;
   firstName = "";
