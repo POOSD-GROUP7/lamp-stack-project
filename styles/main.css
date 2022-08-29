@@ -1,0 +1,87 @@
+/*
+ * Button Element
+ */
+.button {
+    border: 0;
+    cursor: pointer;
+    padding: 0.4rem 1rem;
+    font-size: 1rem;
+    text-align: center;
+    color: #fff;
+    border-radius: 0.5rem;
+    background-color: hsl(202 87% 54%);
+    transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+    background-color: hsl(202 87% 40%);
+    transform: scale(1.04);
+}
+
+.button:active {
+    transform: scale(0.96);
+    transition: all 0.1s ease-out;
+}
+
+/*
+ * Toggle Button Element
+ */
+.toggleButtonGroup {
+    display: flex;
+    font-size: 1rem;
+    color: hsl(202 87% 54%);
+    border: hsl(0, 0%, 60%) 1px solid;
+    border-radius: 0.5rem;
+}
+
+.toggleButtonGroup > * {
+    width: 100%;
+    cursor: pointer;
+    padding: 0.4rem 1rem;
+    text-align: center;
+    transition: all 0.2s ease-in-out;
+}
+
+.toggleButtonGroup > *:first-child {
+    border-radius: 0.5rem 0 0 0.5rem;
+}
+
+.toggleButtonGroup > *:last-child {
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.toggleButtonGroup > *:not(:first-child):not(:last-child) {
+    border-radius: 0;
+}
+
+.toggleButtonGroup > *:hover {
+    background-color: hsl(202 87% 84%);
+}
+
+.toggleButtonGroup > .active {
+    color: hsl(202 87% 98%);
+    background-color: hsl(202 87% 54%);
+}
+
+.toggleButtonGroup > .active:hover {
+    background-color: hsl(202 87% 54%);
+}
+
+/*
+ * Text Field Element
+ */
+.textField {
+    background-color: hsl(0 0% 100% / 0.4);
+    border: none;
+    border-radius: 0.5rem;
+    outline: hsl(0 0% 60%) 1px solid;
+    font-size: 1rem;
+    padding: 0.5rem 0.6rem;
+    width: 95%;
+    transition: all 0.2s ease-in-out;
+}
+
+.textField:focus {
+    background-color: hsl(0 0% 100% / 0.9);
+    outline: hsl(202 87% 54%) 1px solid;
+}

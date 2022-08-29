@@ -1,22 +1,30 @@
-<html>
+<!DOCTYPE html>
+<html lang="en-US">
 <head>
-	<title>COP 4331 LAMP Stack Demo</title>
-	<script type="text/javascript" src="js/md5.js"></script>
-	<script type="text/javascript" src="js/code.js"></script>
-    <link href="css/styles.css" rel="stylesheet">	
+    <title>COP 4331 LAMP Stack Demo</title>
+    <script src="scripts/md5.js" type="text/javascript"></script>
+    <link href="styles/auth.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 </head>
 <body>
 
-<h1 id="title">COP 4331 LAMP Stack Demo</h1>
-
-<div id="loginDiv">
-	<span id="inner-title">PLEASE LOG IN</span>
-	<input type="text" id="loginName" placeholder="Username" /><br />
-	<input type="password" id="loginPassword" placeholder="Password"/><br />
-	<button type="button" id="loginButton" class="buttons" onclick="doLogin();"> Do It </button>
-	<span id="loginResult"></span>
-</div>
-
+<section id="authCard">
+    <img alt="Contact Manager icon" id="logo" src="public/icons/contacts.svg" width="64">
+    <h1>Contact Manager</h1>
+    <div class="toggleButtonGroup" id="authToggle">
+        <div id="loginToggle" onclick="setLogin()" role="button">Login</div>
+        <div id="registerToggle" onclick="setRegister()" role="button">Register</div>
+    </div>
+    <div id="registerInputs">
+        <input class="textField" id="firstNameInput" placeholder="First Name" type="text"/>
+        <input class="textField" id="lastNameInput" placeholder="Last Name" type="text"/>
+    </div>
+    <input class="textField" id="emailInput" placeholder="Email" type="text"/>
+    <input class="textField" id="passwordInput" placeholder="Password" type="password"/>
+    <button class="button" id="loginButton" onclick="doLogin();" type="button">Login</button>
+    <button class="button" id="registerButton" onclick="doRegister();" type="button">Register</button>
+    <span id="loginResult"></span>
+</section>
+<script src="scripts/auth.js" type="text/javascript"></script>
 </body>
 </html>
