@@ -9,6 +9,8 @@ let lastName = "";
 let loginToggle = document.getElementById("loginToggle");
 let registerToggle = document.getElementById("registerToggle");
 let registerInputs = document.getElementById("registerInputs");
+let firstNameInput = document.getElementById("firstNameInput");
+let lastNameInput = document.getElementById("lastNameInput");
 let loginButton = document.getElementById("loginButton");
 let registerButton = document.getElementById("registerButton");
 
@@ -16,21 +18,33 @@ let registerButton = document.getElementById("registerButton");
 loginToggle.classList.add("active");
 
 function setLogin() {
-  // Modify the DOM to show login information
+  //#region Modify the DOM to show login information
+
   loginToggle.classList.add("active");
   registerToggle.classList.remove("active");
-  registerInputs.style.display = "none";
+
+  registerInputs.style.marginBottom = "";
+  registerInputs.style.opacity = "0";
+
   registerButton.style.display = "none";
   loginButton.style.display = "block";
+
+  //#endregion
 }
 
 function setRegister() {
-  // Modify the DOM to show register information
+  //#region Modify the DOM to show register information
+
   loginToggle.classList.remove("active");
   registerToggle.classList.add("active");
-  registerInputs.style.display = "flex";
+
+  registerInputs.style.marginBottom = "0";
+  registerInputs.style.opacity = "1";
+
   loginButton.style.display = "none";
   registerButton.style.display = "block";
+
+  //#endregion
 }
 
 // TODO: Implement the functionality below (From this point down, all the code was copy pasted from the class example)

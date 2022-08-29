@@ -27,6 +27,7 @@ body {
     width: 70%;
     max-width: 24rem;
     margin: 0 auto;
+    transition: all 0.2s ease-in-out;
 }
 
 @media only screen and (max-width: 600px) {
@@ -38,6 +39,7 @@ body {
 
     #registerInputs {
         flex-direction: column;
+        margin-bottom: -6rem;
     }
 }
 
@@ -50,6 +52,7 @@ body {
 
     #registerInputs {
         flex-direction: row;
+        margin-bottom: -3rem;
     }
 }
 
@@ -61,9 +64,10 @@ body {
 
 #registerInputs {
     align-items: center;
-    display: none;
+    display: flex;
     gap: 1rem;
     width: 100%;
+    transition: opacity 0.1s ease-in-out, margin-bottom 0.2s ease-in-out;
 }
 
 #loginButton {
