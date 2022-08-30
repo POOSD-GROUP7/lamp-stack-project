@@ -1,0 +1,45 @@
+@import "font.css";
+@import "main.css";
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+#appbar {
+    background-color: hsl(205, 89%, 58%);
+    background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+    display: flex;
+    height: 3rem;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+    margin: 0;
+    user-select: none;
+}
+
+#appbarLeft {
+    align-items: center;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
+}
+
+#appbarLeft > h1 {
+    margin: 0;
+}
+
+#logout {
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+#logout:hover {
+    transform: scale(1.04);
+}
+
+#logout:active {
+    transform: scale(0.96);
+    transition: all 0.1s ease-out;
+}

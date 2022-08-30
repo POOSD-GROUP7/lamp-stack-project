@@ -66,6 +66,8 @@ body {
     align-items: center;
     display: flex;
     gap: 1rem;
+    opacity: 0;
+    visibility: collapse;
     width: 100%;
     transition: opacity 0.1s ease-in-out, margin-bottom 0.2s ease-in-out;
 }

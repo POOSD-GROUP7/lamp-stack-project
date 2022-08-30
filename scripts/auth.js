@@ -25,6 +25,7 @@ function setLogin() {
 
   registerInputs.style.marginBottom = "";
   registerInputs.style.opacity = "0";
+  registerInputs.style.visibility = "collapse";
 
   registerButton.style.display = "none";
   loginButton.style.display = "block";
@@ -40,6 +41,7 @@ function setRegister() {
 
   registerInputs.style.marginBottom = "0";
   registerInputs.style.opacity = "1";
+  registerInputs.style.visibility = "visible";
 
   loginButton.style.display = "none";
   registerButton.style.display = "block";
