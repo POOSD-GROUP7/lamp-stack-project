@@ -1,6 +1,17 @@
+@import "colors.css";
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
 /*
  * Button Element
  */
+
 .button {
     border: 0;
     cursor: pointer;
@@ -9,12 +20,12 @@
     text-align: center;
     color: #fff;
     border-radius: 0.5rem;
-    background-color: hsl(202 87% 54%);
+    background-color: var(--primary);
     transition: all 0.2s ease-in-out;
 }
 
 .button:hover {
-    background-color: hsl(202 87% 40%);
+    background-color: var(--primary-dark);
     transform: scale(1.02);
 }
 
@@ -26,11 +37,12 @@
 /*
  * Toggle Button Element
  */
+
 .toggleButtonGroup {
     display: flex;
     font-size: 1rem;
-    color: hsl(202 87% 54%);
-    border: hsl(0, 0%, 60%) 1px solid;
+    color: var(--primary);
+    border: var(--text-inactive) 1px solid;
     border-radius: 0.5rem;
 }
 
@@ -55,26 +67,23 @@
 }
 
 .toggleButtonGroup > *:hover {
-    background-color: hsl(202 87% 84%);
+    background-color: var(--primary-light);
 }
 
-.toggleButtonGroup > .active {
-    color: hsl(202 87% 98%);
-    background-color: hsl(202 87% 54%);
-}
-
-.toggleButtonGroup > .active:hover {
-    background-color: hsl(202 87% 54%);
+.toggleButtonGroup > .active, .active:hover {
+    color: var(--text);
+    background-color: var(--primary);
 }
 
 /*
  * Text Field Element
  */
+
 .textField {
-    background-color: hsl(0 0% 100% / 0.4);
+    background-color: var(--background-light-40);
     border: none;
     border-radius: 0.5rem;
-    outline: hsl(0 0% 60%) 1px solid;
+    outline: var(--text-inactive) 1px solid;
     font-size: 1rem;
     padding: 0.5rem 0.6rem;
     width: 95%;
@@ -82,6 +91,50 @@
 }
 
 .textField:focus {
-    background-color: hsl(0 0% 100% / 0.9);
-    outline: hsl(202 87% 54%) 1px solid;
+    background-color: var(--background-light-90);
+    outline: var(--primary) 1px solid;
+}
+
+/*
+ * Divider Element
+ */
+
+hr.vertical {
+    border: 0;
+    margin: 0;
+    border-left: 2px solid var(--background-dark-10);
+    height: 100%;
+}
+
+/*
+ * Scrollbar
+ */
+
+::-webkit-scrollbar {
+    width: 6px; /* vertical scrollbar */
+    height: 6px; /* horizontal scrollbar */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 1rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 1rem;
+}
+
+/*
+ * Keyframes
+ */
+
+@keyframes slide {
+    0% {
+        transform: translate(0);
+    }
+    100% {
+        transform: translate(-1920px);
+    }
 }

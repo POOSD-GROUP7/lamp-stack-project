@@ -12,40 +12,46 @@
 
 <body>
 
-    <nav id="appbar">
-        <div id="appbarLeft">
-            <img alt="Contact Manager icon" draggable="false" height="32" id="logo" src="public/icons/contacts.svg"
-                width="32">
+<nav id="appbar">
+    <div id="backgroundImage"></div>
+    <div id="appbarContent">
+        <div id="appbarContentLeft">
+            <img alt="Contact Manager icon" draggable="false" height="28" id="logoIcon" src="public/icons/contacts.svg"
+                 width="28">
             <h1>Contact Manager</h1>
         </div>
-        <div id="appbarRight">
-            <img alt="Log out" draggable="false" height="32" id="logout" onclick="doLogout();" role="button"
-                src="public/icons/logout.svg" width="32">
+        <div id="appbarContentRight">
+            <img alt="Log out" draggable="false" height="28" id="logoutIcon" onclick="doLogout();" role="button"
+                 src="public/icons/logout.svg" width="28">
         </div>
-    </nav>
+    </div>
+</nav>
 
-
-    <div id="searchAndDisplay">
-        <br />
-        <div id="searchBar">
-            <input type="text" class="textField" id="contact" placeholder="Search" type="text">
-            <button type="button" class="searchFieldBtn" onclick="searchContact();">
-                <img src="/public/images/search.png">
+<section id="dashboard">
+    <section id="search">
+        <div id="searchContainer">
+            <div id="searchBar">
+                <input class="textField" id="searchInput" onkeyup="processSearchChange(value)" placeholder="Search..."
+                       type="text">
+                <img alt="Search icon" draggable="false" height="24" id="searchIcon"
+                     src="public/icons/search.svg" width="24">
+            </div>
+            <button class="button" id="searchButton" onclick="addContact();">
+                <img alt="Add contact icon" draggable="false" height="30" id="addIcon"
+                     src="public/icons/add.svg" width="30">
             </button>
         </div>
-        <div class="searchButtonGroup">
-            <div class="button" id="searchButton" onclick="addContact();" role="button">+</div>
-        </div>
-    </div>
-
-
-    <div id="contactList">
-        <span id="contactSearchResult"></span>
-        <div id="contactName">
-            <p>[Contact Name]</p>
-        </div>
-
-    </div>
+        <ul id="contactsList">
+            <!-- Any retrieved contact will be appended here -->
+        </ul>
+    </section>
+    
+    <hr class="vertical"/>
+    
+    <section id="contactDetails">
+    
+    </section>
+</section>
 
 </body>
 
