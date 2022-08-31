@@ -74,6 +74,24 @@
     margin: 2rem;
 }
 
+#contactDetails {
+    display: flex;
+    height: calc(100vh - 3rem);
+    flex-basis: 45vw;
+}
+
+#contactDetails > section {
+    margin: 2rem;
+}
+
+#contactPreview {
+    display: flex;
+}
+
+#contactInfo {
+    display: flex;
+    background-color: maroon;
+}
 #search {
     display: flex;
     flex-direction: column;
@@ -151,3 +169,21 @@
     padding: 0.2rem 0.5rem;
     width: 3rem;
 }
+
+#contactPreview {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+#circle {
+    width: 160px;
+    height: 160px;
+    line-height: 160px;
+    border-radius: 50%;
+    font-size: 60px;
+    color: #fff;
+    text-align: center;
+    background: #d3d3d3;
+}
+
