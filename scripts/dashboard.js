@@ -79,7 +79,7 @@ function debounce(func, timeout = 300) {
   };
 }
 
-const processSearchChange = debounce(() => searchContact());
+const processSearchChange = debounce((value) => searchContact(value));
 
 /**
  * Calls the API to search for the contact that matches the search term passed
@@ -88,28 +88,36 @@ const processSearchChange = debounce(() => searchContact());
  * @return {void}
  */
 function searchContact(searchTerm = "") {
-  // Filter Contacts by search term (Full-text search across all fields)
-  const searchString = searchTerm?.trim().toLowerCase();
+  const searchString = searchTerm?.trim();
+
 
   // TODO: Perform API calls here to fetch the contacts matching the search term
 
+
   let contactsList = document.getElementById("contactsList");
-  contactsList.innerHTML = "";
+
+  if (searchString && contacts.length === 0) {
+    // If there are no contacts matching the search term, display a no results message
+    contactsList.innerHTML = "<h3 style='align-self: center'>No contacts found.</h3>";
+  } else if (contacts.length === 0) {
+    // If there are no contacts, display a no contacts message
+    contactsList.innerHTML = "<h3 style='align-self: center'>No contacts yet.</h3>";
+  } else {
+    // Else set the old contactsList to an empty string before populating it with the new contacts
+    contactsList.innerHTML = "";
+  }
 
   // Sorts and displays the contacts JSON array in the contactsList element
   contacts
     .sort((a, b) => a.firstName.localeCompare(b.firstName))
-    .forEach(contact => {
-      const listItem = document.createElement("li");
-      const button = document.createElement("button");
-      const heading = document.createElement("h2");
-      const textNode = document.createTextNode(contact.firstName + " " + contact.lastName);
-      heading.appendChild(textNode);
-      button.appendChild(heading);
-      listItem.appendChild(button);
-      // Add function to listItem
-      listItem.onclick = () => setActiveContact(listItem);
-      contactsList.appendChild(listItem);
+    .forEach((contact, index) => {
+      const listItem = `
+            <li id="${index}" onclick="setActiveContact(this)">
+                <button type="button">
+                    <h2>${contact.firstName} ${contact.lastName}</h2>
+                </button>
+            </li>`;
+      contactsList.innerHTML += listItem;
     });
 
   // let tmp = {search: srch, userId: userId};
