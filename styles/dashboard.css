@@ -145,6 +145,10 @@ body {
     background-color: var(--primary-light);
 }
 
+#contactsList > li:focus-within {
+    background-color: var(--primary-light);
+}
+
 #contactsList > li.active {
     color: var(--text);
     background-color: var(--primary);

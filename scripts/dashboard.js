@@ -101,10 +101,12 @@ function searchContact(searchTerm = "") {
     .sort((a, b) => a.firstName.localeCompare(b.firstName))
     .forEach(contact => {
       const listItem = document.createElement("li");
+      const button = document.createElement("button");
       const heading = document.createElement("h2");
       const textNode = document.createTextNode(contact.firstName + " " + contact.lastName);
       heading.appendChild(textNode);
-      listItem.appendChild(heading);
+      button.appendChild(heading);
+      listItem.appendChild(button);
       // Add function to listItem
       listItem.onclick = () => setActiveContact(listItem);
       contactsList.appendChild(listItem);
