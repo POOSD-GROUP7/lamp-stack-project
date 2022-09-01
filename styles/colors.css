@@ -1,0 +1,13 @@
+/* All color definitions will go here */
+
+:root {
+    --background-dark-10: hsl(0 0% 0% / 0.1);
+    --background-dark-20: hsl(0 0% 0% / 0.2);
+    --background-light-40: hsl(0 0% 100% / 0.4);
+    --background-light-90: hsl(0 0% 100% / 0.9);
+    --primary: hsl(202 87% 54%);
+    --primary-light: hsl(202 87% 85%);
+    --primary-dark: hsl(202 87% 40%);
+    --text: hsl(202 87% 98%);
+    --text-inactive: hsl(0 0% 60%);
+}

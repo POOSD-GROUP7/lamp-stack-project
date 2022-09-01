@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-US">
+
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
@@ -8,19 +9,81 @@
     <script src="scripts/md5.js" type="text/javascript"></script>
     <script defer src="scripts/dashboard.js" type="text/javascript"></script>
 </head>
+
 <body>
 
 <nav id="appbar">
-    <div id="appbarLeft">
-        <img alt="Contact Manager icon" draggable="false" height="32" id="logo" src="public/icons/contacts.svg"
-             width="32">
-        <h1>Contact Manager</h1>
-    </div>
-    <div id="appbarRight">
-        <img alt="Log out" draggable="false" height="32" id="logout" onclick="doLogout();"
-             role="button" src="public/icons/logout.svg" width="32">
+    <div id="backgroundImage"></div>
+    <div id="appbarContent">
+        <div id="appbarContentLeft">
+            <img alt="Contact Manager icon" draggable="false" height="28" id="logoIcon" src="public/icons/contacts.svg"
+                 width="28">
+            <h1>Contact Manager</h1>
+        </div>
+        <div id="appbarContentRight">
+            <img alt="Log out" draggable="false" height="28" id="logoutIcon" onclick="doLogout();" role="button"
+                 src="public/icons/logout.svg" width="28">
+        </div>
     </div>
 </nav>
 
+<section id="dashboard">
+    <section id="search">
+        <div id="searchContainer">
+            <div id="searchBar">
+                <input class="textField" id="searchInput" onkeyup="processSearchChange(value)" placeholder="Search..."
+                       type="text">
+                <img alt="Search icon" draggable="false" height="24" id="searchIcon"
+                     src="public/icons/search.svg" width="24">
+            </div>
+            <button class="button" id="searchButton" onclick="addContact();">
+                <img alt="Add contact icon" draggable="false" height="30" id="addIcon"
+                     src="public/icons/add.svg" width="30">
+            </button>
+        </div>
+        <ul id="contactsList">
+            <!-- Any retrieved contact will be appended here -->
+        </ul>
+    </section>
+    
+    <hr class="vertical"/>
+    
+    <section id="contactDetails">
+        <div id="circleContainer">
+            <div id="circle">AD</div>
+        </div>
+        <div id="contactName">Alex Doe</div>
+
+        <div id="contactInfo">
+            <div id="emailAddress">
+                <img class="contactIcons" alt="Mail icon" draggable="false" height="26" id="mailIcon" src="public/icons/mail.svg" 
+                width="26">
+                <span id="emailField">alexdoe@gmail.com</span>
+            </div>
+            <div id="phoneNumber">
+                <img class="contactIcons" alt="Phone icon" draggable="false" height="26" id="phoneIcon" src="public/icons/phone.svg" 
+                width="26">
+                <span id="phoneField">407-123-4567</span>
+            </div>
+            <div id="address">
+                <img class="contactIcons" alt="House icon" draggable="false" height="26" id="houseIcon" src="public/icons/house.svg" 
+                width="26">
+                <span id="addressField">1234 University Blvd, Orlando, FL 32826</span>
+            </div>
+            <div id="date">
+                <img class="contactIcons" alt="Calendar icon" draggable="false" height="26" id="calendarIcon" src="public/icons/calendar.svg" 
+                width="26">
+                <span id="dateAddedField">Added on August 30, 2022</span>
+            </div>
+        </div>
+        <div id="contactButtons">
+            <button class="button" id="editButton" onclick="addContact();">
+                <span id="edit">Edit</span>
+            </button>
+        </div>
+    </section>
+</section>
+
 </body>
+
 </html>
