@@ -113,6 +113,11 @@ hr.vertical {
 ::-webkit-scrollbar {
     width: 6px; /* vertical scrollbar */
     height: 6px; /* horizontal scrollbar */
+    border-radius: 1rem;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-dark);
 }
 
 /* Track */
