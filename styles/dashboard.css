@@ -2,6 +2,10 @@
 @import "main.css";
 @import "colors.css";
 
+body {
+    max-width: 100%;
+}
+
 /*
  * Appbar
  */
@@ -75,8 +79,6 @@
 }
 
 #contactDetails {
-    display: flex;
-    height: calc(100vh - 3rem);
     flex-basis: 45vw;
 }
 
@@ -84,14 +86,10 @@
     margin: 2rem;
 }
 
-#contactPreview {
-    display: flex;
+#contactInfo {
+    padding-top: 8%;
 }
 
-#contactInfo {
-    display: flex;
-    background-color: maroon;
-}
 #search {
     display: flex;
     flex-direction: column;
@@ -177,13 +175,95 @@
 }
 
 #circle {
-    width: 160px;
-    height: 160px;
-    line-height: 160px;
+    display: flex;
+    justify-content: center;
+    width: 130px;
+    height: 130px;
+    line-height: 130px;
     border-radius: 50%;
     font-size: 60px;
     color: #fff;
     text-align: center;
     background: #d3d3d3;
+    justify-content: center;
 }
 
+#contactName {
+    padding-top: 5%;
+    font-size: 40px;
+    text-align: center;
+    font-weight: semibold;
+    color: rgb(102, 102, 102);
+}
+
+#mailIcon {
+    padding-right: 1rem;
+    float: left;
+}
+
+#phoneIcon {
+    padding-right: 1rem;
+    float: left;
+}
+
+#houseIcon {
+    padding-right: 1rem;
+    float: left;
+}
+
+#calendarIcon {
+    padding-right: 1rem;
+    float: left;
+}
+
+#circleContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#emailAddress {
+    font-size: 22px;
+    color: rgb(102, 102, 102);
+    padding-left: 15%;
+    padding-bottom: 5%;
+}
+
+#phoneNumber {
+    font-size: 22px;
+    color: rgb(102, 102, 102);
+    padding-left: 15%;
+    padding-bottom: 5%;
+}
+
+#address {
+    font-size: 22px;
+    color: rgb(102, 102, 102);
+    padding-left: 15%;
+    padding-bottom: 5%;
+}
+
+#date {
+    font-size: 22px;
+    color: rgb(102, 102, 102);
+    padding-left: 15%;
+    padding-bottom: 10%;
+}
+
+.contactIcons {
+    filter: invert(40%);
+}
+
+#editButton {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 0.9rem;
+    width: 3rem;
+}
+
+#edit {
+    font-size: 19px;
+}
+
+#contactButtons {
+    float: right;
+}

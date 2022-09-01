@@ -49,12 +49,37 @@
     <hr class="vertical"/>
     
     <section id="contactDetails">
-        <div id="contactPreview">
-            <div id="initialsProfile">
-                <div id="circle">AD</div>
+        <div id="circleContainer">
+            <div id="circle">AD</div>
+        </div>
+        <div id="contactName">Alex Doe</div>
+
+        <div id="contactInfo">
+            <div id="emailAddress">
+                <img class="contactIcons" alt="Mail icon" draggable="false" height="26" id="mailIcon" src="public/icons/mail.svg" 
+                width="26">
+                <span id="emailField">alexdoe@gmail.com</span>
+            </div>
+            <div id="phoneNumber">
+                <img class="contactIcons" alt="Phone icon" draggable="false" height="26" id="phoneIcon" src="public/icons/phone.svg" 
+                width="26">
+                <span id="phoneField">407-123-4567</span>
+            </div>
+            <div id="address">
+                <img class="contactIcons" alt="House icon" draggable="false" height="26" id="houseIcon" src="public/icons/house.svg" 
+                width="26">
+                <span id="addressField">1234 University Blvd, Orlando, FL 32826</span>
+            </div>
+            <div id="date">
+                <img class="contactIcons" alt="Calendar icon" draggable="false" height="26" id="calendarIcon" src="public/icons/calendar.svg" 
+                width="26">
+                <span id="dateAddedField">Added on August 30, 2022</span>
             </div>
         </div>
-        <div id="contactInfo">  
+        <div id="contactButtons">
+            <button class="button" id="editButton" onclick="addContact();">
+                <span id="edit">Edit</span>
+            </button>
         </div>
     </section>
 </section>
