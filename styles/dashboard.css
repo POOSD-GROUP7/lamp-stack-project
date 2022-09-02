@@ -25,7 +25,7 @@ body {
     padding: 0 1rem;
     position: relative;
     user-select: none;
-    color: #fff;
+    color: var(--text-contrast);
 }
 
 #backgroundImage {
@@ -66,6 +66,10 @@ body {
 @media only screen and (max-width: 600px) {
     #dashboard > section {
         margin: 1rem;
+    }
+
+    #contactDetails {
+
     }
 }
 

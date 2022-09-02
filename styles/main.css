@@ -29,7 +29,7 @@ button, input[type="submit"], input[type="reset"] {
     padding: 0.4rem 1rem;
     font-size: 1rem;
     text-align: center;
-    color: #fff;
+    color: var(--text-contrast);
     border-radius: 0.5rem;
     background-color: var(--primary);
     transition: all 0.2s ease-in-out;

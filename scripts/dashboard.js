@@ -8,6 +8,16 @@ let lastName = "";
 
 let selectedContactItem = null;
 
+// Tracks if the device that is used to view the page has a small screen size
+let mobile = false;
+
+//#region DOM Element declarations
+
+const search = document.getElementById("search");
+const contactDetails = document.getElementById("contactDetails");
+
+//#endregion
+
 // Temporary contacts for testing
 let contacts = [];
 [
@@ -67,6 +77,9 @@ let contacts = [];
 searchContact();
 
 
+//#region Utility Functions
+
+
 /**
  * Delays the execution of a function ignoring any change until no more change is detected in the timeout specified.
  *
@@ -84,7 +97,11 @@ function debounce(func, timeout = 300) {
   };
 }
 
+//#endregion
+
 const processSearchChange = debounce((value) => searchContact(value));
+
+//#region Render Functions
 
 /**
  * Calls the API to search for the contact that matches the search term passed
@@ -194,14 +211,69 @@ function setActiveContact(contactItem) {
   dateAddedField.innerHTML = "Added on " + contacts[contactItem.id].dateAdded;
 }
 
-function collapseContactDetails() {
-  const contactDetails = document.getElementById("contactDetails");
+/**
+ * Expands or collapses the sections based on whether it is being viewed on a small screen.
+ *
+ * @param {boolean} isSmallScreen - Whether the screen is small or not.
+ * @return {void}
+ */
+function setupLayoutForScreen(isSmallScreen) {
+  if (isSmallScreen) {
+    mobile = true;
+    if (selectedContactItem) {
+      expandContactDetails();
+      collapseSearch();
+    }
+  } else {
+    mobile = false;
+    if (selectedContactItem) {
+      expandContactDetails();
+      expandSearch();
+    } else {
+      collapseContactDetails();
+      expandSearch();
+    }
+  }
+}
 
+function collapseContactDetails() {
   contactDetails.classList.add("collapsed");
+
+  if (mobile) {
+    expandSearch();
+  }
 }
 
 function expandContactDetails() {
-  const contactDetails = document.getElementById("contactDetails");
-
   contactDetails.classList.remove("collapsed");
+
+  if (mobile) {
+    collapseSearch();
+  }
 }
+
+function collapseSearch() {
+  search.classList.add("collapsed");
+}
+
+function expandSearch() {
+  search.classList.remove("collapsed");
+}
+
+//#endregion
+
+//#region Media Queries
+
+if (window.matchMedia("(max-width: 600px)").matches) {
+  setupLayoutForScreen(true);
+}
+
+const mql = window.matchMedia('(max-width: 600px)');
+
+function screen({matches}) {
+  setupLayoutForScreen(matches);
+}
+
+mql.addEventListener('change', screen);
+
+//#endregion
