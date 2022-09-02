@@ -1,14 +1,12 @@
 @import "font.css";
 @import "main.css";
 @import "colors.css";
+@import "dashboard/contact-details.css";
+@import "dashboard/contacts-list.css";
 
 body {
     max-width: 100%;
 }
-
-/*
- * Appbar
- */
 
 #appbar {
     overflow-x: hidden;
@@ -65,36 +63,13 @@ body {
     transition: all 0.1s ease-out;
 }
 
-/*
- * Dashboard Content
- */
-
-#dashboard {
-    display: flex;
-    height: calc(100vh - 3rem);
-}
-
 #dashboard > section {
     margin: 2rem;
 }
 
-#contactDetails {
-    flex-basis: 45vw;
-}
-
-#contactDetails > section {
-    margin: 2rem;
-}
-
-#contactInfo {
-    padding-top: 8%;
-}
-
-#search {
+#dashboard {
     display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    flex-basis: 45vw;
+    height: calc(100vh - 3rem);
 }
 
 @media only screen and (max-width: 600px) {
@@ -103,170 +78,3 @@ body {
     }
 }
 
-#searchBar {
-    position: relative;
-    width: 100%;
-}
-
-#searchContainer {
-    display: flex;
-    gap: 3rem;
-}
-
-#contactNameSelectable {
-    border-top: var(--background-light-90) 2px solid;
-}
-
-#contactsList {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    padding-right: 1rem;
-    user-select: none;
-    width: 100%;
-    height: 100%;
-    list-style-type: none;
-    margin-block: 0;
-    margin-inline: 0;
-    padding-inline: 0;
-}
-
-#contactsList > li {
-    cursor: pointer;
-    border-radius: 1rem;
-    padding: 0 1rem;
-    width: 92%;
-    transition: all 0.2s ease-in-out;
-}
-
-#contactsList > li:hover {
-    background-color: var(--primary-light);
-}
-
-#contactsList > li:focus-within {
-    background-color: var(--primary-light);
-}
-
-#contactsList > li.active {
-    color: var(--text);
-    background-color: var(--primary);
-    transition: all 0.1s ease-out;
-}
-
-#searchInput {
-    padding-left: 2rem;
-}
-
-#searchIcon {
-    position: absolute;
-    left: 0.25rem;
-    top: 0.25rem;
-}
-
-#searchButton {
-    display: flex;
-    justify-content: center;
-    padding: 0.2rem 0.5rem;
-    width: 3rem;
-}
-
-#contactPreview {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-#circle {
-    display: flex;
-    justify-content: center;
-    width: 130px;
-    height: 130px;
-    line-height: 130px;
-    border-radius: 50%;
-    font-size: 60px;
-    color: #fff;
-    text-align: center;
-    background: #d3d3d3;
-}
-
-#contactName {
-    padding-top: 5%;
-    font-size: 40px;
-    text-align: center;
-    font-weight: semibold;
-    color: rgb(102, 102, 102);
-}
-
-#mailIcon {
-    padding-right: 1rem;
-    float: left;
-}
-
-#phoneIcon {
-    padding-right: 1rem;
-    float: left;
-}
-
-#houseIcon {
-    padding-right: 1rem;
-    float: left;
-}
-
-#calendarIcon {
-    padding-right: 1rem;
-    float: left;
-}
-
-#circleContainer {
-    display: flex;
-    justify-content: center;
-}
-
-#emailAddress {
-    font-size: 22px;
-    color: rgb(102, 102, 102);
-    padding-left: 15%;
-    padding-bottom: 5%;
-}
-
-#phoneNumber {
-    font-size: 22px;
-    color: rgb(102, 102, 102);
-    padding-left: 15%;
-    padding-bottom: 5%;
-}
-
-#address {
-    font-size: 22px;
-    color: rgb(102, 102, 102);
-    padding-left: 15%;
-    padding-bottom: 5%;
-}
-
-#date {
-    font-size: 22px;
-    color: rgb(102, 102, 102);
-    padding-left: 15%;
-    padding-bottom: 10%;
-}
-
-.contactIcons {
-    filter: invert(40%);
-}
-
-#editButton {
-    display: flex;
-    justify-content: center;
-    padding: 0.5rem 0.9rem;
-    width: 3rem;
-}
-
-#edit {
-    font-size: 19px;
-}
-
-#contactButtons {
-    float: right;
-}

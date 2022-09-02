@@ -8,6 +8,7 @@
     --primary: hsl(202 87% 54%);
     --primary-light: hsl(202 87% 85%);
     --primary-dark: hsl(202 87% 40%);
-    --text: hsl(202 87% 98%);
-    --text-inactive: hsl(0 0% 60%);
+    --text: hsl(202 87% 2%);
+    --text-contrast: hsl(202 87% 98%);
+    --text-inactive: hsl(0 0% 40%);
 }

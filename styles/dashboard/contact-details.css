@@ -1,0 +1,69 @@
+#contactDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 10%;
+    padding-left: 2%;
+    padding-right: 2%;
+    width: 50%;
+}
+
+#contactDetails > section {
+    margin: 2rem;
+}
+
+#contactInfo {
+    padding-top: 2rem;
+    align-self: center;
+}
+
+#contactCircle {
+    align-self: center;
+    background: var(--background-dark-20);
+    border-radius: 50%;
+    color: var(--text-contrast);
+    display: flex;
+    font-size: 3rem;
+    padding: 1.5rem;
+}
+
+#contactName {
+    align-self: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--text-inactive);
+}
+
+#mailIcon, #phoneIcon, #addressIcon, #calendarIcon {
+    padding-right: 0.75rem;
+    float: left;
+}
+
+#emailAddress, #phoneNumber, #address, #date {
+    font-size: 1.3rem;
+    color: var(--text-inactive);
+    padding-bottom: 2rem;
+}
+
+.contactIcons {
+    filter: invert(40%);
+}
+
+#contactButtons {
+    position: absolute;
+    bottom: 3%;
+    right: 3%;
+}
+
+#contactButtons > button {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-size: 1.5rem;
+}
+
+#contactButtons > button > img {
+    filter: invert(100%);
+}
+
+

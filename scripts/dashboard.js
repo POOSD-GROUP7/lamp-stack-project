@@ -92,34 +92,6 @@ function searchContact(searchTerm = "") {
 
 
   // TODO: Perform API calls here to fetch the contacts matching the search term
-
-
-  let contactsList = document.getElementById("contactsList");
-
-  if (searchString && contacts.length === 0) {
-    // If there are no contacts matching the search term, display a no results message
-    contactsList.innerHTML = "<h3 style='align-self: center'>No contacts found.</h3>";
-  } else if (contacts.length === 0) {
-    // If there are no contacts, display a no contacts message
-    contactsList.innerHTML = "<h3 style='align-self: center'>No contacts yet.</h3>";
-  } else {
-    // Else set the old contactsList to an empty string before populating it with the new contacts
-    contactsList.innerHTML = "";
-  }
-
-  // Sorts and displays the contacts JSON array in the contactsList element
-  contacts
-    .sort((a, b) => a.firstName.localeCompare(b.firstName))
-    .forEach((contact, index) => {
-      const listItem = `
-            <li id="${index}" onclick="setActiveContact(this)">
-                <button type="button">
-                    <h2>${contact.firstName} ${contact.lastName}</h2>
-                </button>
-            </li>`;
-      contactsList.innerHTML += listItem;
-    });
-
   // let tmp = {search: srch, userId: userId};
   // let jsonPayLoad = JSON.stringify(tmp);
   //
@@ -150,6 +122,34 @@ function searchContact(searchTerm = "") {
   // } catch (err) {
   //   document.getElementById("contactSearchResult").innerHTML = err.message;
   // }
+
+
+  let contactsList = document.getElementById("contactsList");
+
+  if (searchString && contacts.length === 0) {
+    // If there are no contacts matching the search term, display a no results message
+    contactsList.innerHTML = "<h3 style='align-self: center'>No contacts found.</h3>";
+  } else if (contacts.length === 0) {
+    // If there are no contacts, display a no contacts message
+    contactsList.innerHTML = "<h3 style='align-self: center'>No contacts yet.</h3>";
+  } else {
+    // Else set the old contactsList to an empty string before populating it with the new contacts
+    contactsList.innerHTML = "";
+  }
+
+  // Sorts and displays the contacts JSON array in the contactsList element
+  contacts
+    .sort((a, b) => a.firstName.localeCompare(b.firstName))
+    .forEach((contact, index) => {
+      const listItem = `
+            <li id="${index}" onclick="setActiveContact(this)">
+                <button type="button">
+                    <h2>${contact.firstName} ${contact.lastName}</h2>
+                </button>
+            </li>`;
+      contactsList.innerHTML += listItem;
+    });
+
 }
 
 /**
@@ -171,5 +171,5 @@ function setActiveContact(contactItem) {
   }
   selectedContactItem = contactItem;
 
-  // TODO: Logic to display the contact details here
+
 }
