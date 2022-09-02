@@ -50,6 +50,39 @@ button, input[type="submit"], input[type="reset"] {
 }
 
 /*
+ * Icon Button Element
+ */
+
+.iconButton {
+    cursor: pointer;
+    padding: 0.2rem 0.3rem;
+    font-size: 1rem;
+    text-align: center;
+    border-radius: 50%;
+    transition: all 0.2s ease-in-out;
+}
+
+.iconButton:hover, .iconButton:focus-visible {
+    transform: scale(1.04);
+    background-color: var(--background-emphasis);
+}
+
+.iconButton:hover > img, .iconButton:focus-visible > img, .iconButton:active > img {
+    transform: scale(1.04);
+    filter: invert(100%);
+}
+
+.iconButton:focus-visible {
+    outline: 4px solid var(--background-dark-10);
+}
+
+.iconButton:active {
+    transform: scale(0.96);
+    background-color: var(--background-emphasis-dark);
+    transition: all 0.1s ease-out;
+}
+
+/*
  * Toggle Button Element
  */
 

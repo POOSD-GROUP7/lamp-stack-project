@@ -21,8 +21,10 @@
             <h1>Contact Manager</h1>
         </div>
         <div id="appbarContentRight">
-            <img alt="Log out" draggable="false" height="28" id="logoutIcon" onclick="doLogout();" role="button"
-                 src="public/icons/logout.svg" width="28">
+            <button id="logoutButton" onclick="doLogout();" type="button">
+                <img alt="Log out" draggable="false" height="28" role="button"
+                     src="public/icons/logout.svg" width="28">
+            </button>
         </div>
     </div>
 </nav>
@@ -36,7 +38,7 @@
                 <img alt="Search icon" draggable="false" height="28" id="searchIcon"
                      src="public/icons/search.svg" width="28">
             </div>
-            <button class="button" id="addButton" onclick="addContact();">
+            <button class="button" id="addButton" onclick="addContact();" type="button">
                 <img alt="Add contact icon" draggable="false" height="32" id="addIcon"
                      src="public/icons/add.svg" width="32">
             </button>
@@ -49,40 +51,44 @@
     <hr class="vertical"/>
     
     <section id="contactDetails">
-        <div id="contactCircle">AD</div>
-        <p id="contactName">Alex Doe</p>
+        <button class="iconButton" id="collapseContactDetailsButton" onclick="collapseContactDetails()" type="button">
+            <img alt="Collapse Contact Details" draggable="false" src="public/icons/hide.svg"
+                 width="28">
+        </button>
+        <div id="contactCircle"></div>
+        <p id="contactName"></p>
         
         <div id="contactInfo">
             <div id="emailAddress">
                 <img alt="Mail icon" class="contactIcons" draggable="false" height="26" id="mailIcon"
                      src="public/icons/mail.svg"
                      width="26">
-                <span id="emailField">alexdoe@gmail.com</span>
+                <span id="emailField"></span>
             </div>
             <div id="phoneNumber">
                 <img alt="Phone icon" class="contactIcons" draggable="false" height="26" id="phoneIcon"
                      src="public/icons/phone.svg"
                      width="26">
-                <span id="phoneField">407-123-4567</span>
+                <span id="phoneField"></span>
             </div>
             <div id="address">
                 <img alt="Address icon" class="contactIcons" draggable="false" height="26" id="addressIcon"
                      src="public/icons/house.svg"
                      width="26">
-                <span id="addressField">1234 University Blvd, Orlando, FL 32826</span>
+                <span id="addressField"></span>
             </div>
             <div id="date">
                 <img alt="Calendar icon" class="contactIcons" draggable="false" height="26" id="calendarIcon"
                      src="public/icons/calendar.svg"
                      width="26">
-                <span id="dateAddedField">Added on August 30, 2022</span>
+                <span id="dateAddedField"></span>
             </div>
         </div>
         <div id="contactButtons">
-            <button class="button" id="editButton" onclick="addContact();">
-                <img alt="Edit icon" class="contactIcons" draggable="false" height="26" id="editIcon"
+            <button class="button" id="editButton" onclick="addContact();" type="button">
+                <img alt="Edit icon" class="contactIcons" draggable="false" height="24" id="editIcon"
                      src="public/icons/edit.svg"
-                     width="26">
+                     width="24">
                 <span id="edit">Edit</span>
             </button>
         </div>

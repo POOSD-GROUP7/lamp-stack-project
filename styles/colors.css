@@ -1,6 +1,9 @@
 /* All color definitions will go here */
 
 :root {
+    --background-emphasis: hsl(0 0% 60% / 0.8);
+    --background-emphasis-light: hsl(0 0% 80% / 0.8);
+    --background-emphasis-dark: hsl(0 0% 40% / 0.8);
     --background-dark-10: hsl(0 0% 0% / 0.1);
     --background-dark-20: hsl(0 0% 0% / 0.2);
     --background-light-40: hsl(0 0% 100% / 0.4);

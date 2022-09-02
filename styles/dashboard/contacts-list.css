@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    flex-basis: 45vw;
+    min-width: 12rem;
+    width: 100%;
 }
 
 #searchBar {
@@ -12,6 +13,8 @@
 
 #searchContainer {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 #searchInput {
@@ -40,6 +43,7 @@
 
 #contactsList > li {
     cursor: pointer;
+    box-sizing: border-box;
     border-radius: 1rem;
     margin-right: 2%;
     padding: 0 1rem;
@@ -60,6 +64,19 @@
     transition: all 0.1s ease-out;
 }
 
+#contactsList > li > button {
+    height: 4rem;
+}
+
+.contactName {
+    font-size: 2rem;
+    font-weight: normal;
+    overflow: hidden;
+    white-space: nowrap;
+    display: block;
+    text-overflow: ellipsis;
+}
+
 #searchInput {
     padding-left: 2.5rem;
 }
@@ -76,4 +93,10 @@
     padding: 0.25rem 0.6rem;
     margin-left: 3rem;
     width: 3rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .contactName {
+        font-size: 1.5rem;
+    }
 }

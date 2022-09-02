@@ -18,6 +18,7 @@ let contacts = [];
     "phone": "555-555-5555",
     "email": "chris@example.com",
     "address": "123 Main St, Anywhere, USA",
+    "dateAdded": "August 22, 2022",
   },
   {
     "id": 1,
@@ -26,6 +27,7 @@ let contacts = [];
     "phone": "555-555-5555",
     "email": "alex@example.com",
     "address": "123 Main St, Anywhere, USA",
+    "dateAdded": "August 22, 2022",
   },
   {
     "id": 5,
@@ -34,6 +36,7 @@ let contacts = [];
     "phone": "555-555-5555",
     "email": "walt@example.com",
     "address": "123 Main St, Anywhere, USA",
+    "dateAdded": "August 23, 2022",
   },
   {
     "id": 4,
@@ -42,6 +45,7 @@ let contacts = [];
     "phone": "555-555-5555",
     "email": "thomas@example.com",
     "address": "123 Main St, Anywhere, USA",
+    "dateAdded": "August 24, 2022",
   },
   {
     "id": 3,
@@ -49,7 +53,8 @@ let contacts = [];
     "lastName": "Bloggs",
     "phone": "555-555-5555",
     "email": "bloggs@example.com",
-    "address": "123 Main St, Anywhere, USA",
+    "address": "1234567891011122314151617181920 Main St, Anywhere, USA",
+    "dateAdded": "August 25, 2022",
   },
 ].forEach(contact => {
   // Include the contact 4 times for testing purposes
@@ -144,7 +149,7 @@ function searchContact(searchTerm = "") {
       const listItem = `
             <li id="${index}" onclick="setActiveContact(this)">
                 <button type="button">
-                    <h2>${contact.firstName} ${contact.lastName}</h2>
+                    <span class="contactName">${contact.firstName} ${contact.lastName}</span>
                 </button>
             </li>`;
       contactsList.innerHTML += listItem;
@@ -159,6 +164,8 @@ function searchContact(searchTerm = "") {
  * @return {void}
  */
 function setActiveContact(contactItem) {
+  expandContactDetails();
+
   // If already selected, nothing needs to be done
   if (contactItem.isSameNode(selectedContactItem)) {
     return;
@@ -171,5 +178,30 @@ function setActiveContact(contactItem) {
   }
   selectedContactItem = contactItem;
 
+  // Update the contact details
+  const contactCircle = document.getElementById("contactCircle");
+  const contactName = document.getElementById("contactName");
+  const emailField = document.getElementById("emailField");
+  const phoneField = document.getElementById("phoneField");
+  const addressField = document.getElementById("addressField");
+  const dateAddedField = document.getElementById("dateAddedField");
 
+  contactCircle.innerHTML = contacts[contactItem.id].firstName[0] + contacts[contactItem.id].lastName[0];
+  contactName.innerHTML = contacts[contactItem.id].firstName + " " + contacts[contactItem.id].lastName;
+  emailField.innerHTML = contacts[contactItem.id].email;
+  phoneField.innerHTML = contacts[contactItem.id].phone;
+  addressField.innerHTML = contacts[contactItem.id].address;
+  dateAddedField.innerHTML = "Added on " + contacts[contactItem.id].dateAdded;
+}
+
+function collapseContactDetails() {
+  const contactDetails = document.getElementById("contactDetails");
+
+  contactDetails.classList.add("collapsed");
+}
+
+function expandContactDetails() {
+  const contactDetails = document.getElementById("contactDetails");
+
+  contactDetails.classList.remove("collapsed");
 }

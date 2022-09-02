@@ -48,19 +48,9 @@ body {
     margin: 0;
 }
 
-#logoutIcon {
+#logoutButton {
     filter: invert(100%);
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-#logoutIcon:hover {
-    transform: scale(1.04);
-}
-
-#logoutIcon:active {
-    transform: scale(0.96);
-    transition: all 0.1s ease-out;
+    padding-right: 0.2rem;
 }
 
 #dashboard > section {
@@ -69,6 +59,7 @@ body {
 
 #dashboard {
     display: flex;
+    overflow-x: hidden;
     height: calc(100vh - 3rem);
 }
 
