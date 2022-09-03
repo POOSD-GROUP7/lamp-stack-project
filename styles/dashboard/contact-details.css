@@ -35,7 +35,7 @@
 
 #contactCircle {
     align-self: center;
-    background: var(--background-dark-20);
+    background: var(--bg-focus);
     border-radius: 50%;
     color: var(--text-contrast);
     display: flex;
@@ -82,5 +82,20 @@
 #contactButtons > button > img {
     filter: invert(100%);
 }
+
+@media (prefers-color-scheme: dark) {
+    #contactButtons > button > img {
+        filter: invert(0%);
+    }
+
+    .contactIcons {
+        filter: invert(60%);
+    }
+
+    #collapseContactDetailsButton > img {
+        filter: invert(100%);
+    }
+}
+
 
 

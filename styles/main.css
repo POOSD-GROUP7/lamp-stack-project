@@ -41,7 +41,7 @@ button, input[type="submit"], input[type="reset"] {
 }
 
 .button:focus-visible {
-    outline: 4px solid var(--background-dark-10);
+    outline: 4px solid var(--bg-focus-light);
 }
 
 .button:active {
@@ -64,21 +64,20 @@ button, input[type="submit"], input[type="reset"] {
 
 .iconButton:hover, .iconButton:focus-visible {
     transform: scale(1.04);
-    background-color: var(--background-emphasis);
+    background-color: var(--bg-focus);
 }
 
 .iconButton:hover > img, .iconButton:focus-visible > img, .iconButton:active > img {
     transform: scale(1.04);
-    filter: invert(100%);
 }
 
 .iconButton:focus-visible {
-    outline: 4px solid var(--background-dark-10);
+    outline: 4px solid var(--bg-focus-light);
 }
 
 .iconButton:active {
     transform: scale(0.96);
-    background-color: var(--background-emphasis-dark);
+    background-color: var(--bg-focus);
     transition: all 0.1s ease-out;
 }
 
@@ -89,7 +88,7 @@ button, input[type="submit"], input[type="reset"] {
 .toggleButtonGroup {
     display: flex;
     font-size: 1rem;
-    color: var(--primary);
+    color: var(--primary-light);
     border: var(--text-inactive) 1px solid;
     border-radius: 0.5rem;
 }
@@ -115,20 +114,28 @@ button, input[type="submit"], input[type="reset"] {
 }
 
 .toggleButtonGroup > *:hover {
-    background-color: var(--primary-light);
+    background-color: var(--primary);
 }
 
 .toggleButtonGroup > .active, .active:hover {
     color: var(--text);
-    background-color: var(--primary);
+    background-color: var(--primary-light);
 }
+
+@media (prefers-color-scheme: dark) {
+    .toggleButtonGroup > .active, .active:hover {
+        background-color: var(--primary-dark);
+    }
+}
+
 
 /*
  * Text Field Element
  */
 
 .textField {
-    background-color: var(--background-light-40);
+    color: var(--text);
+    background-color: var(--bg-focus-light);
     border: none;
     border-radius: 0.5rem;
     outline: var(--text-inactive) 1px solid;
@@ -139,7 +146,7 @@ button, input[type="submit"], input[type="reset"] {
 }
 
 .textField:focus {
-    background-color: var(--background-light-90);
+    background-color: var(--bg-paper);
     outline: var(--primary) 1px solid;
 }
 
@@ -150,7 +157,7 @@ button, input[type="submit"], input[type="reset"] {
 hr.vertical {
     border: 0;
     margin: 0;
-    border-left: 2px solid var(--background-dark-10);
+    border-left: 2px solid var(--bg-focus-light);
     height: 100%;
 }
 

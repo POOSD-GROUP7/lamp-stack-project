@@ -31,10 +31,6 @@
     font-size: 1.25rem;
 }
 
-#contactNameSelectable {
-    border-top: var(--background-light-90) 2px solid;
-}
-
 #contactsList {
     display: flex;
     flex-direction: column;
@@ -95,6 +91,7 @@
     position: absolute;
     left: 0.5rem;
     top: 0.3rem;
+    filter: invert(50%);
 }
 
 #addButton {
@@ -105,8 +102,26 @@
     width: 3rem;
 }
 
+#addIcon {
+    filter: invert(100%);
+}
+
 @media only screen and (max-width: 600px) {
     .contactName {
         font-size: 1.5rem;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    #contactsList > li:hover {
+        background-color: var(--primary);
+    }
+
+    #contactsList > li:focus-within {
+        background-color: var(--primary);
+    }
+
+    #contactsList > li.active {
+        background-color: var(--primary-light);
     }
 }

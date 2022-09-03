@@ -6,14 +6,11 @@
 
 body {
     max-width: 100%;
+    background-color: var(--bg-paper);
 }
 
 #appbar {
     overflow-x: hidden;
-}
-
-#logoIcon {
-    filter: invert(100%);
 }
 
 #appbarContent {
@@ -30,7 +27,7 @@ body {
 
 #backgroundImage {
     animation: slide 120s linear infinite;
-    background-color: var(--primary-dark);
+    background-color: var(--bg-primary);
     background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
     background-repeat: repeat-x;
     width: 7680px;
@@ -45,11 +42,11 @@ body {
 }
 
 #appbarContentLeft > h1 {
+    color: var(--text);
     margin: 0;
 }
 
 #logoutButton {
-    filter: invert(100%);
     padding-right: 0.2rem;
 }
 
@@ -67,9 +64,16 @@ body {
     #dashboard > section {
         margin: 1rem;
     }
+}
 
-    #contactDetails {
+@media (prefers-color-scheme: dark) {
+    #logoIcon {
+        filter: invert(100%);
+    }
 
+    #logoutButton {
+        filter: invert(100%);
     }
 }
+
 

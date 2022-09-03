@@ -9,7 +9,7 @@ let lastName = "";
 let selectedContactItem = null;
 
 // Tracks if the device that is used to view the page has a small screen size
-let mobile = false;
+let smallScreen = false;
 
 //#region DOM Element declarations
 
@@ -219,13 +219,13 @@ function setActiveContact(contactItem) {
  */
 function setupLayoutForScreen(isSmallScreen) {
   if (isSmallScreen) {
-    mobile = true;
+    smallScreen = true;
     if (selectedContactItem) {
       expandContactDetails();
       collapseSearch();
     }
   } else {
-    mobile = false;
+    smallScreen = false;
     if (selectedContactItem) {
       expandContactDetails();
       expandSearch();
@@ -239,7 +239,7 @@ function setupLayoutForScreen(isSmallScreen) {
 function collapseContactDetails() {
   contactDetails.classList.add("collapsed");
 
-  if (mobile) {
+  if (smallScreen) {
     expandSearch();
   }
 }
@@ -247,13 +247,14 @@ function collapseContactDetails() {
 function expandContactDetails() {
   contactDetails.classList.remove("collapsed");
 
-  if (mobile) {
+  if (smallScreen) {
     collapseSearch();
   }
 }
 
 function collapseSearch() {
   search.classList.add("collapsed");
+
 }
 
 function expandSearch() {
@@ -264,11 +265,11 @@ function expandSearch() {
 
 //#region Media Queries
 
-if (window.matchMedia("(max-width: 600px)").matches) {
+if (window.matchMedia("(max-width: 728px)").matches) {
   setupLayoutForScreen(true);
 }
 
-const mql = window.matchMedia('(max-width: 600px)');
+const mql = window.matchMedia('(max-width: 728px)');
 
 function screen({matches}) {
   setupLayoutForScreen(matches);
