@@ -20,6 +20,7 @@
 		//$stmt->bind_param("ss", $colorName, $inData["userId"]);
 		//$stmt->execute();
 
+	
 		$user_Input = trim($user_Input);
 		$user_Input = explode(" ", $user_Input);
 		if (count($user_Input) > 1)
@@ -29,7 +30,7 @@
 			$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? AND LastName LIKE ?) AND UserID = ?");
 			$stmt->bind_param("ssi", $user_Input1, $user_Input2, $user_Id);
 		}
-		
+
 		else
 		{
 			$user_Input = '%' . $user_Input[0] . '%';
