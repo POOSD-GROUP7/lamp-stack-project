@@ -66,9 +66,18 @@ let contacts = [];
     "address": "1234567891011122314151617181920 Main St, Anywhere, USA",
     "dateAdded": "August 25, 2022",
   },
+  {
+    "id": 6,
+    "firstName": "VeryLongFirstName",
+    "lastName": "VeryLongLastNameVeryLongLastName",
+    "phone": "555-555-5555",
+    "email": "bloggs@example.com",
+    "address": "1234567891011122314151617181920 Main St, Anywhere, USA",
+    "dateAdded": "August 25, 2022",
+  },
 ].forEach(contact => {
-  // Include the contact 4 times for testing purposes
-  for (let i = 0; i < 4; i++) {
+  // Include the contact n times for testing purposes
+  for (let i = 0; i < 6; i++) {
     contacts.push(contact);
   }
 });
@@ -268,11 +277,11 @@ function expandSearch() {
 
 //#region Media Queries
 
-if (window.matchMedia("(max-width: 728px)").matches) {
+if (window.matchMedia("(max-width: 800px)").matches) {
   setupLayoutForScreen(true);
 }
 
-const mql = window.matchMedia('(max-width: 728px)');
+const mql = window.matchMedia('(max-width: 800px)');
 
 function screen({matches}) {
   setupLayoutForScreen(matches);
