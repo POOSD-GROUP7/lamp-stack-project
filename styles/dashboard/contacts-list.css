@@ -1,7 +1,7 @@
 #search {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 2rem;
     min-width: 12rem;
     width: 100%;
     transition: all 0.3s ease-out, opacity 0.3s cubic-bezier(1, -0.25, .74, .75);
@@ -52,6 +52,7 @@
 #contactsList > li {
     cursor: pointer;
     box-sizing: border-box;
+    border: var(--bg-focus) solid 1px;
     border-radius: 1rem;
     padding: 0 2rem;
     transition: all 0.2s ease-in-out;
