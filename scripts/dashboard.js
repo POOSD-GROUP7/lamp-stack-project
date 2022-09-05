@@ -238,6 +238,9 @@ function setupLayoutForScreen(isSmallScreen) {
 
 function collapseContactDetails() {
   contactDetails.classList.add("collapsed");
+  // De-select the selected contact
+  selectedContactItem.classList.remove("active");
+  selectedContactItem = null;
 
   if (smallScreen) {
     expandSearch();
