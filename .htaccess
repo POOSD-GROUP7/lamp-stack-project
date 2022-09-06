@@ -1,2 +1,0 @@
-# Not secure as it allows cross site requests from any origin, but this is probably fine for this project.
-Header add Access-Control-Allow-Origin "*"
