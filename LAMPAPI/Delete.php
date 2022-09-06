@@ -10,12 +10,15 @@
 	} 
 	else
 	{
-		$stmt = $conn->prepare("DELETE FROM Contacts WHERE ID=?");
-		$stmt->bind_param("s", $id);
-		$stmt->execute();
-		$stmt->close();
+		$sql = "DELETE FROM Contacts WHERE id=$id";
+		$stmt = $conn->query($sql);
+		$affected = mysqli_affected_rows($conn);
 		$conn->close();
-		returnWithError("");
+		if ($affected > 0) {
+			returnSuccess("Succesful Delete");
+		} else {
+			returnWithError("Not found");
+		}
 	}
 
 	function getRequestInfo()
@@ -32,6 +35,12 @@
 	function returnWithError( $err )
 	{
 		$retValue = '{"error":"' . $err . '"}';
+		sendResultInfoAsJson( $retValue );
+	}
+
+	function returnSuccess( $msg )
+	{
+		$retValue = '{"response":"' . $msg . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
