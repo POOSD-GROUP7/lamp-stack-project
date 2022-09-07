@@ -79,8 +79,6 @@ searchContact();
 
 
 //#region Utility Functions
-
-
 /**
  * Delays the execution of a function ignoring any change until no more change is detected in the timeout specified.
  *
@@ -112,7 +110,6 @@ const processSearchChange = debounce((value) => searchContact(value));
  */
 function searchContact(searchTerm = "") {
   const searchString = searchTerm?.trim();
-
   //TODO: Perform API calls here to fetch the contacts matching the search term
 
   //get the string and format the search in JSON format 
@@ -126,24 +123,21 @@ function searchContact(searchTerm = "") {
   let xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-type", "application/json", "charset=UTF-8");
-
-  //instantiate a list of contacts
   try {
     xhr.onreadystatechange = function () {
       //when the request has been made...
       if (this.readyState == 4 && this.status == 200) {
         //get the reponse from the endpoint and parse it 
         //document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
-        let jsonObject = xhr.responseText
+        let jsonObject = JSON.parse(xhr.responseText);
 
         //go through the contents of the JSON object 
-        // for (let i = 0; i < jsonObject.results.length; i++) {
-        //   listOfContacts += jsonObject.results[i];
-        //   if (i < jsonObject.results.length - 1) {
-        //     listOfContacts += "<br/>\r\n";
-        //   }
-        // }
-
+        for (let i = 0; i < jsonObject.results.length; i++) {
+          listOfContacts += jsonObject.results[i];
+          if (i < jsonObject.results.length - 1) {
+            listOfContacts += "<br/>\r\n";
+          }
+        }
         // document.getElementById("contactName")[0].innerHTML = listOfContacts;
       }
     };
@@ -152,7 +146,6 @@ function searchContact(searchTerm = "") {
   catch (err) {
     document.getElementById("contactsList").innerHTML = err.message;
   }
-
 
   let contactsList = document.getElementById("contactsList");
 
@@ -179,7 +172,34 @@ function searchContact(searchTerm = "") {
             </li>`;
       contactsList.innerHTML += listItem;
     });
+}
 
+function addContact() {
+  let newContact = document.getElementById("contactText").value;
+
+  //userId, userId?
+  let tmp = { contact: newContact, userId: userId };
+  let jsonPayLoad = JSON.stringify(tmp);
+
+  let url = urlBase + "/AddContact." + extension;
+
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try {
+    xhr.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+      }
+    };
+
+    xhr.send(jsonPayLoad);
+  }
+  catch (err) {
+    document.getElementById("contactAddResult").innerHTML = err.message;
+  }
 }
 
 /**
