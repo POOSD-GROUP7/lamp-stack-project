@@ -43,6 +43,7 @@
 		
 		$result = $stmt->get_result();
 		
+		
 		while($row = $result->fetch_assoc())
 		{
 			if( $searchCount > 0 )
