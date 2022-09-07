@@ -193,5 +193,4 @@ function searchColor() {
   } catch (err) {
     document.getElementById("colorSearchResult").innerHTML = err.message;
   }
-
 }

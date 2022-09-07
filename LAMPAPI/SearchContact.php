@@ -6,7 +6,7 @@
 	$searchCount = 0;
 
 	$user_Id = $inData["userId"];
-	$user_Input = $inData["query"];
+	$user_Input = $inData["search"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error) 
