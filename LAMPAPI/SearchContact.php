@@ -19,7 +19,6 @@
 		//$colorName = "%" . $inData["search"] . "%";
 		//$stmt->bind_param("ss", $colorName, $inData["userId"]);
 		//$stmt->execute();
-
 	
 		$user_Input = trim($user_Input);
 		$user_Input = explode(" ", $user_Input);
