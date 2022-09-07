@@ -121,38 +121,45 @@ const processSearchChange = debounce((value) => searchContact(value));
 function searchContact(searchTerm = "") {
   const searchString = searchTerm?.trim();
 
+  //TODO: Perform API calls here to fetch the contacts matching the search term
 
-  // TODO: Perform API calls here to fetch the contacts matching the search term
-  // let tmp = {search: srch, userId: userId};
-  // let jsonPayLoad = JSON.stringify(tmp);
-  //
-  // let url = urlBase + '/SearchContacts' + extension;
-  //
-  // let xhr = new XMLHttpRequest();
-  // xhr.open("POST", url, true);
-  // xhr.setRequestHeader("Content-type", "application/json", "charset=UTF-8");
-  //
-  // try {
-  //   xhr.onreadystatechange = function () {
-  //     if (this.readyState == 4 && this.status == 200) {
-  //       document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
-  //       let jsonObject = JSON.parse(xhr.responseText);
-  //
-  //       for (let i = 0; i < jsonObject.results.length; i++) {
-  //         //need to fix html formatting for results
-  //         contactList += jsonObject.results[i];
-  //         if (i < jsonObject.results.length - 1) {
-  //           contactList += "<br/>\r\n";
-  //         }
-  //       }
-  //
-  //       document.getElementById("contactName")[0].innerHTML = contactList;
-  //     }
-  //   };
-  //   xhr.send(jsonPayLoad);
-  // } catch (err) {
-  //   document.getElementById("contactSearchResult").innerHTML = err.message;
-  // }
+  //get the string and format the search in JSON format 
+  let tmp = { search: searchString, userId: userId };
+  let jsonPayLoad = JSON.stringify(tmp);
+
+  //redirect to the SearchContact.php endpoint 
+  let url = urlBase + '/SearchContact.' + extension;
+
+  //make a new Http POST Request 
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json", "charset=UTF-8");
+
+  //instantiate a list of contacts
+  try {
+    xhr.onreadystatechange = function () {
+      //when the request has been made...
+      if (this.readyState == 4 && this.status == 200) {
+        //get the reponse from the endpoint and parse it 
+        //document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
+        let jsonObject = xhr.responseText
+
+        //go through the contents of the JSON object 
+        // for (let i = 0; i < jsonObject.results.length; i++) {
+        //   listOfContacts += jsonObject.results[i];
+        //   if (i < jsonObject.results.length - 1) {
+        //     listOfContacts += "<br/>\r\n";
+        //   }
+        // }
+
+        // document.getElementById("contactName")[0].innerHTML = listOfContacts;
+      }
+    };
+    xhr.send(jsonPayLoad);
+  }
+  catch (err) {
+    document.getElementById("contactsList").innerHTML = err.message;
+  }
 
 
   let contactsList = document.getElementById("contactsList");
@@ -283,7 +290,7 @@ if (window.matchMedia("(max-width: 800px)").matches) {
 
 const mql = window.matchMedia('(max-width: 800px)');
 
-function screen({matches}) {
+function screen({ matches }) {
   setupLayoutForScreen(matches);
 }
 
