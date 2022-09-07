@@ -31,6 +31,20 @@ body {
     margin-block-end: 1rem;
 }
 
+#loginResult {
+    color: var(--text-error);
+    font-weight: bold;
+    margin-bottom: -2rem;
+    opacity: 0;
+    transition: all 0.2s ease-in;
+}
+
+#loginResult.shown {
+    margin-bottom: 0;
+    opacity: 1;
+    transition: all 0.2s ease-out;
+}
+
 #registerInputs {
     flex-direction: row;
     margin-bottom: -3rem;

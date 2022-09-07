@@ -36,14 +36,18 @@ body {
 
 #appbarContentLeft {
     align-items: center;
+    color: var(--text);
     display: flex;
     gap: 0.5rem;
     justify-content: space-between;
 }
 
-#appbarContentLeft > h1 {
+#appbarContentRight {
+    align-items: center;
     color: var(--text);
-    margin: 0;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: space-between;
 }
 
 #logoutButton {
@@ -63,6 +67,14 @@ body {
 @media only screen and (max-width: 600px) {
     #dashboard > section {
         margin: 1rem;
+    }
+
+    #appbarContentLeft > h1 {
+        display: none;
+    }
+
+    #appbarContentRight > * {
+        font-size: 1rem;
     }
 }
 
