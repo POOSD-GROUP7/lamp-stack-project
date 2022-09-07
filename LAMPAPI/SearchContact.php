@@ -51,7 +51,7 @@
 
 			$searchResults .= '{'.
 			
-				'"contactId": "'.$row["UserID"].'", '.
+				'"id": "'.$row["UserID"].'", '.
 
 				'"firstName": "'.$row["FirstName"].'", '.
 
@@ -59,10 +59,10 @@
 
 				'"email": "'.$row["email"].'", '.
 
-				'"phone": "'.$row["phone"].''.
-
-				'"}';
+				'"phone": "'.$row["phone"].''.'"}';
 		}
+
+		//$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
 		
 		if( $searchCount == 0 )
 		{
