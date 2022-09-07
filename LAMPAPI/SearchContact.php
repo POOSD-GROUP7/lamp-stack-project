@@ -50,12 +50,18 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= {'.'
-				'"contactId": "'.$row["ID"].'", '.
+			$searchResults .= {
+				'.'
+				'"contactId": " '.$row["UserID"].' ", '.
+
 				'"firstName": "'.$row["FirstName"].'", '.
+
 				'"lastName": "'.$row["LastName"].'", '.
-				'"email": "'.$row["Email"].'", '.
-				'"phone": "'.$row["Phone"].''.
+
+				'"email": "'.$row["email"].'", '.
+
+				'"phone": "'.$row["phone"].''.
+
 			'"}';
 		}
 		
