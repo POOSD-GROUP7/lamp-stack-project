@@ -1,24 +1,29 @@
-const urlBase = 'http://COP4331-5.com/LAMPAPI';
-const extension = 'php';
+const urlBase = "http://ucfcontactmanager.online/LAMPAPI";
+
+document.addEventListener('DOMContentLoaded', function () {
+  readCookie();
+});
 
 let userId = 0;
 let firstName = "";
 let lastName = "";
 
 // Get elements from the DOM
-let loginToggle = document.getElementById("loginToggle");
-let registerToggle = document.getElementById("registerToggle");
-let registerInputs = document.getElementById("registerInputs");
-let firstNameInput = document.getElementById("firstNameInput");
-let lastNameInput = document.getElementById("lastNameInput");
-let loginButton = document.getElementById("loginButton");
-let registerButton = document.getElementById("registerButton");
+const loginToggle = document.getElementById("loginToggle");
+const registerToggle = document.getElementById("registerToggle");
+const loginResult = document.getElementById("loginResult");
+const registerInputs = document.getElementById("registerInputs");
+const firstNameInput = document.getElementById("firstNameInput");
+const lastNameInput = document.getElementById("lastNameInput");
+const loginButton = document.getElementById("loginButton");
+const registerButton = document.getElementById("registerButton");
 
 // By default, Login will be selected upon page load
-loginToggle.classList.add("active");
+loginToggle?.classList.add("active");
 
 function setLogin() {
   //#region Modify the DOM to show login information
+  loginResult.classList.remove("shown");
 
   loginToggle.classList.add("active");
   registerToggle.classList.remove("active");
@@ -35,6 +40,7 @@ function setLogin() {
 
 function setRegister() {
   //#region Modify the DOM to show register information
+  loginResult.classList.remove("shown");
 
   loginToggle.classList.remove("active");
   registerToggle.classList.add("active");
@@ -49,23 +55,20 @@ function setRegister() {
   //#endregion
 }
 
-// TODO: Implement the functionality below (From this point down, all the code was copy pasted from the class example)
 function doLogin() {
+  let password = document.getElementById("passwordInput").value;
+  let login = document.getElementById("emailInput").value;
+
   userId = 0;
   firstName = "";
   lastName = "";
 
-  let login = document.getElementById("loginName").value;
-  let password = document.getElementById("loginPassword").value;
-//	var hash = md5( password );
-
-  document.getElementById("loginResult").innerHTML = "";
+  const passwordHash = md5(password);
 
   let tmp = {login: login, password: password};
-//	var tmp = {login:login,password:hash};
   let jsonPayload = JSON.stringify(tmp);
 
-  let url = urlBase + '/Login.' + extension;
+  let url = urlBase + '/Login.php';
 
   let xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
@@ -77,7 +80,8 @@ function doLogin() {
         userId = jsonObject.id;
 
         if (userId < 1) {
-          document.getElementById("loginResult").innerHTML = "User/Password combination incorrect";
+          loginResult.innerHTML = "User/Password combination incorrect";
+          loginResult.classList.add("shown");
           return;
         }
 
@@ -86,12 +90,13 @@ function doLogin() {
 
         saveCookie();
 
-        window.location.href = "color.html";
+        window.location.href = "dashboard.html";
       }
     };
     xhr.send(jsonPayload);
   } catch (err) {
-    document.getElementById("loginResult").innerHTML = err.message;
+    loginResult.innerHTML = err.message;
+    loginResult.classList.add("shown");
   }
 
 }
@@ -120,9 +125,15 @@ function readCookie() {
   }
 
   if (userId < 0) {
-    window.location.href = "index.html";
+    if (window.location.href.includes("dashboard.html")) {
+      window.location.href = "index.html";
+    }
   } else {
-    document.getElementById("userName").innerHTML = "Logged in as " + firstName + " " + lastName;
+    if (window.location.href.includes("index.html")) {
+      window.location.href = "dashboard.html";
+    } else {
+      document.getElementById("appbarUserName").innerHTML = "Logged in as " + firstName + " " + lastName;
+    }
   }
 }
 
@@ -132,66 +143,4 @@ function doLogout() {
   lastName = "";
   document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
   window.location.href = "index.html";
-}
-
-function addColor() {
-  let newColor = document.getElementById("colorText").value;
-  document.getElementById("colorAddResult").innerHTML = "";
-
-  let tmp = {color: newColor, userId, userId};
-  let jsonPayload = JSON.stringify(tmp);
-
-  let url = urlBase + '/AddColor.' + extension;
-
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  try {
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("colorAddResult").innerHTML = "Color has been added";
-      }
-    };
-    xhr.send(jsonPayload);
-  } catch (err) {
-    document.getElementById("colorAddResult").innerHTML = err.message;
-  }
-
-}
-
-function searchColor() {
-  let srch = document.getElementById("searchText").value;
-  document.getElementById("colorSearchResult").innerHTML = "";
-
-  let colorList = "";
-
-  let tmp = {search: srch, userId: userId};
-  let jsonPayload = JSON.stringify(tmp);
-
-  let url = urlBase + '/SearchColors.' + extension;
-
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST", url, true);
-  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-  try {
-    xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-        let jsonObject = JSON.parse(xhr.responseText);
-
-        for (let i = 0; i < jsonObject.results.length; i++) {
-          colorList += jsonObject.results[i];
-          if (i < jsonObject.results.length - 1) {
-            colorList += "<br />\r\n";
-          }
-        }
-
-        document.getElementsByTagName("p")[0].innerHTML = colorList;
-      }
-    };
-    xhr.send(jsonPayload);
-  } catch (err) {
-    document.getElementById("colorSearchResult").innerHTML = err.message;
-  }
-
 }

@@ -1,11 +1,3 @@
-const urlBase = "http://WebsiteName.com/LAMPAPI"
-const extension = 'php';
-
-
-let userId = 0;
-let firstName = "";
-let lastName = "";
-
 let selectedContactItem = null;
 
 // Tracks if the device that is used to view the page has a small screen size

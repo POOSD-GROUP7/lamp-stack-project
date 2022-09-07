@@ -15,6 +15,7 @@
     --text: hsl(202 87% 2%);
     --text-contrast: hsl(202 87% 98%);
     --text-inactive: hsl(0 0% 40%);
+    --text-error: hsl(0 100% 40%);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -33,6 +34,7 @@
         --text: hsl(202 87% 98%);
         --text-contrast: hsl(202 87% 2%);
         --text-inactive: hsl(0 0% 65%);
+        --text-error: hsl(0 100% 65%);
         color: var(--text);
     }
 }
