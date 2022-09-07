@@ -28,8 +28,9 @@
 			$user_Input2 = '%' . $user_Input[1] . '%';
 			$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? AND LastName LIKE ?) AND UserID = ?");
 			$stmt->bind_param("ssi", $user_Input1, $user_Input2, $user_Id);
+			//$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? AND LastName LIKE ?) AND UserID = ?");
+			//$stmt->bind_param("ssi", $user_Input1, $user_Input2, $user_Id);
 		}
-
 		else
 		{
 			$user_Input = '%' . $user_Input[0] . '%';
