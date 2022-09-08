@@ -68,6 +68,7 @@
 		
 		if( $searchCount == 0 )
 		{
+			http_response_code(404);
 			returnWithError( "No Records Found" );
 		}
 		else
