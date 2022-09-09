@@ -15,14 +15,43 @@ const loginResult = document.getElementById("loginResult");
 const registerInputs = document.getElementById("registerInputs");
 const firstNameInput = document.getElementById("firstNameInput");
 const lastNameInput = document.getElementById("lastNameInput");
+const emailInput = document.getElementById("emailInput");
+const emailInputHint = document.getElementById("emailInputHint");
+const passwordInput = document.getElementById("passwordInput");
+const passwordInputHint = document.getElementById("passwordInputHint");
 const loginButton = document.getElementById("loginButton");
 const registerButton = document.getElementById("registerButton");
 
 // By default, Login will be selected upon page load
 loginToggle?.classList.add("active");
 
+function validateEmailField(value) {
+  if (value.match(/^[^\s@]+@([^\s@.,]+.)+[^\s@.,]{2,}$/)) {
+    emailInput.classList.remove("invalid");
+    emailInputHint.classList.remove("shown");
+  } else if (!value.trim()) {
+    emailInput.classList.add("invalid");
+    emailInputHint.innerHTML = "Email cannot be empty.";
+    emailInputHint.classList.add("shown");
+  } else {
+    emailInput.classList.add("invalid");
+    emailInputHint.innerHTML = "Please enter a valid email address.";
+    emailInputHint.classList.add("shown");
+  }
+}
+
+function validatePasswordField(value) {
+  if (value.trim()) {
+    passwordInput.classList.remove("invalid");
+    passwordInputHint.classList.remove("shown");
+  } else {
+    passwordInput.classList.add("invalid");
+    passwordInputHint.innerHTML = "Password cannot be empty.";
+    passwordInputHint.classList.add("shown");
+  }
+}
+
 function setLogin() {
-  //#region Modify the DOM to show login information
   loginResult.classList.remove("shown");
 
   loginToggle.classList.add("active");
@@ -34,12 +63,9 @@ function setLogin() {
 
   registerButton.style.display = "none";
   loginButton.style.display = "block";
-
-  //#endregion
 }
 
 function setRegister() {
-  //#region Modify the DOM to show register information
   loginResult.classList.remove("shown");
 
   loginToggle.classList.remove("active");
@@ -51,21 +77,17 @@ function setRegister() {
 
   loginButton.style.display = "none";
   registerButton.style.display = "block";
-
-  //#endregion
 }
 
 function doLogin() {
-  let password = document.getElementById("passwordInput").value;
-  let login = document.getElementById("emailInput").value;
-
   userId = 0;
   firstName = "";
   lastName = "";
 
-  const passwordHash = md5(password);
-
-  let tmp = {login: login, password: password};
+  let tmp = {
+    login: emailInput.value.trim(),
+    password: md5(passwordInput.value)
+  };
   let jsonPayload = JSON.stringify(tmp);
 
   let url = urlBase + '/Login.php';
@@ -75,12 +97,22 @@ function doLogin() {
   xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
   try {
     xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
+      if (this.readyState !== 4) {
+        return;
+      }
+
+      if (this.status === 401) {
+        loginResult.innerHTML = "Invalid username or password.";
+        loginResult.classList.add("shown");
+      } else if (this.status === 404) {
+        loginResult.innerHTML = "User not found.";
+        loginResult.classList.add("shown");
+      } else if (this.status === 200) {
         let jsonObject = JSON.parse(xhr.responseText);
         userId = jsonObject.id;
 
         if (userId < 1) {
-          loginResult.innerHTML = "User/Password combination incorrect";
+          loginResult.innerHTML = "User/Password combination incorrect.";
           loginResult.classList.add("shown");
           return;
         }
@@ -91,6 +123,59 @@ function doLogin() {
         saveCookie();
 
         window.location.href = "dashboard.html";
+      } else {
+        loginResult.innerHTML = "An error occurred. 😔";
+        loginResult.classList.add("shown");
+      }
+    };
+    xhr.send(jsonPayload);
+  } catch (err) {
+    loginResult.innerHTML = err.message;
+    loginResult.classList.add("shown");
+  }
+
+}
+
+function doRegister() {
+  userId = 0;
+  firstName = "";
+  lastName = "";
+
+  let tmp = {
+    firstName: firstNameInput.value.trim(),
+    lastName: lastNameInput.value.trim(),
+    login: emailInput.value.trim(),
+    password: md5(passwordInput.value)
+  };
+  let jsonPayload = JSON.stringify(tmp);
+
+  let url = urlBase + '/Register.php';
+
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+  try {
+    xhr.onreadystatechange = function () {
+      if (this.readyState !== 4) {
+        return;
+      }
+
+      if (this.status === 409) {
+        loginResult.innerHTML = "Email already in use.";
+        loginResult.classList.add("shown");
+      } else if (this.status === 201 || this.status === 200) {
+        let jsonObject = JSON.parse(xhr.responseText);
+        userId = jsonObject.id;
+
+        firstName = jsonObject.firstName;
+        lastName = jsonObject.lastName;
+
+        saveCookie();
+
+        window.location.href = "dashboard.html";
+      } else {
+        loginResult.innerHTML = "An error occurred. 😔";
+        loginResult.classList.add("shown");
       }
     };
     xhr.send(jsonPayload);
