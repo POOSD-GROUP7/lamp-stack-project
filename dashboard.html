@@ -95,6 +95,38 @@
             </button>
         </div>
     </section>
+
+    <section id="contactAdd" class="collapsed">
+        <button class="iconButton" id="collapseContactDetailsButton" onclick="collapseAddContact()" type="button">
+            <img alt="Collapse new contact" draggable="false" src="public/icons/close.svg"
+                 width="32">
+        </button>
+        <div id="contactCircle" class="contactCircleProfile">NA</div>
+        <form>
+            <div id="formContainer">
+                <div id=content1>
+                    <input id="firstNameInput" class="addContactFields" oninput="updateProfileCircle();" type="text" placeholder="First name">
+                </div>
+                <div id=content2>
+                    <input id="lastNameInput" class="addContactFields" oninput="updateProfileCircle();" type="text" placeholder="Last name">
+                </div>
+                <div id=content3>
+                    <input class="addContactField" type="text" placeholder="Email">
+                </div>
+                <div id=content4>
+                    <input class="addContactField" type="text" placeholder="Phone">
+                </div>
+                <div id=content5>
+                    <input class="addContactField" type="text" placeholder="Address">
+                </div>
+            </div>
+        </form>
+        <div id="contactButtons" class="addContactBtn">
+            <button class="button" onclick="addContact();" type="button">
+                <span>Add</span>
+            </button>
+        </div>
+    </section>
 </section>
 
 </body>

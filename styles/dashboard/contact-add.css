@@ -1,0 +1,85 @@
+#contactAdd {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding-left: 2%;
+    padding-right: 2%;
+    width: 100%;
+    transition: all 0.3s ease-out, opacity 0.3s cubic-bezier(1, -0.25, .74, .75);
+    overflow-y: scroll;
+}
+
+#contactAdd.collapsed {
+    width: 0;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+    transition: all 0.3s ease-out, opacity 0.1s ease-out;
+}
+
+#formContainer {
+    height: 20rem;
+    width: 100%;
+    display: grid;
+    gap: 2em 0em;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+     grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    "content1 content2"
+    "content3 content3"
+    "content4 content4"
+    "content5 content5";
+}
+
+#content1 {
+    display: flex;
+    justify-content: center;
+    grid-area: content1;
+}
+
+#content2 {
+    display: flex;
+    justify-content: center;
+    grid-area: content2;
+}
+
+#content3 {
+    display: flex;
+    justify-content: center;
+    grid-area: content3;
+}
+
+#content4 {
+    display: flex;
+    justify-content: center;
+    grid-area: content4;
+}
+
+#content5 {
+    display: flex;
+    justify-content: center;
+    grid-area: content5;
+}
+
+.addContactFields {
+    padding-left: 0.7rem;
+    width: 80%;
+    height: 100%;
+    border-radius: 0.6rem;
+    background: #EFEFEF;
+    border: 1px solid #989898;
+}
+
+.addContactField {
+    padding-left: 0.7rem;
+    width: 90%;
+    height: 100%;
+    border-radius: 0.6rem;
+    background: #EFEFEF;
+    border: 1px solid #989898;
+}
+
+.addContactBtn {
+    margin-right: calc((100% - 90%)/2);
+}

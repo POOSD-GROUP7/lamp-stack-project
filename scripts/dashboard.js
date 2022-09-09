@@ -7,6 +7,7 @@ let smallScreen = false;
 
 const search = document.getElementById("search");
 const contactDetails = document.getElementById("contactDetails");
+const contactAdd = document.getElementById("contactAdd");
 
 //#endregion
 
@@ -175,6 +176,8 @@ function searchContact(searchTerm = "") {
 }
 
 function addContact() {
+  collapseContactDetails();
+  expandAddContact();
   let newContact = document.getElementById("contactText").value;
 
   //userId, userId?
@@ -264,11 +267,29 @@ function setupLayoutForScreen(isSmallScreen) {
   }
 }
 
+function collapseAddContact() {
+  contactAdd.classList.add("collapsed");
+
+  if (smallScreen) {
+    expandSearch();
+  }
+}
+
+function expandAddContact() {
+  contactAdd.classList.remove("collapsed");
+
+  if (smallScreen) {
+    expandSearch();
+  }
+}
+
 function collapseContactDetails() {
   contactDetails.classList.add("collapsed");
   // De-select the selected contact
-  selectedContactItem.classList.remove("active");
-  selectedContactItem = null;
+  if (selectedContactItem) {
+    selectedContactItem.classList.remove("active");
+    selectedContactItem = null;
+  }
 
   if (smallScreen) {
     expandSearch();
@@ -276,6 +297,7 @@ function collapseContactDetails() {
 }
 
 function expandContactDetails() {
+  collapseAddContact();
   contactDetails.classList.remove("collapsed");
 
   if (smallScreen) {
@@ -292,6 +314,16 @@ function expandSearch() {
   search.classList.remove("collapsed");
 }
 
+function updateProfileCircle() {
+  const firstName = document.getElementById("firstNameInput");
+  const lastName = document.getElementById("lastNameInput");
+
+  const fname = firstName ? firstName.value : "";
+  const lname = lastName ? lastName.value : "";
+  if (fname.length > 0 && lname.length > 0) {
+    document.querySelector(".contactCircleProfile").innerHTML = (fname.charAt(0).toUpperCase() + lname.charAt(0).toUpperCase());
+  }
+}
 //#endregion
 
 //#region Media Queries
