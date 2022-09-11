@@ -107,7 +107,7 @@
     width: 3rem;
 }
 
-#addIcon {
+.addIcon {
     filter: invert(100%);
 }
 
@@ -130,7 +130,7 @@
         background-color: var(--primary-light);
     }
 
-    #addIcon {
+    .addIcon {
         filter: invert(0);
     }
 
