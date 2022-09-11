@@ -33,6 +33,7 @@ button, input[type="submit"], input[type="reset"] {
     border-radius: 0.5rem;
     background-color: var(--primary);
     transition: all 0.2s ease-in-out;
+    user-select: none;
 }
 
 .button:hover, .button:focus-visible {
@@ -60,6 +61,7 @@ button, input[type="submit"], input[type="reset"] {
     text-align: center;
     border-radius: 50%;
     transition: all 0.2s ease-in-out;
+    user-select: none;
 }
 
 .iconButton:hover, .iconButton:focus-visible {
@@ -143,6 +145,10 @@ button, input[type="submit"], input[type="reset"] {
     padding: 0.5rem 0.6rem;
     width: 95%;
     transition: all 0.2s ease-in-out;
+}
+
+.textField:focus.invalid, .textField.invalid {
+    outline: var(--text-error) 1px solid;
 }
 
 .textField:focus {

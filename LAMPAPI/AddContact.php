@@ -1,4 +1,15 @@
 <?php
+	if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+		// return only the headers and not the content
+		// only allow CORS if we're doing a GET - i.e. no saving for now.
+		if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) &&
+			$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'GET') {
+		header('Access-Control-Allow-Origin: *');
+		header('Access-Control-Allow-Headers: X-Requested-With');
+		}
+		exit;
+	}
+
 	$inData = getRequestInfo();
 	
 	$userId = $inData["UserID"];
@@ -19,7 +30,8 @@
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
-		returnWithError("");
+		http_response_code(201);
+		returnWithInfo("Succesful Contact added");
 	}
 
 	function getRequestInfo()
@@ -32,11 +44,16 @@
 		header('Content-type: application/json');
 		echo $obj;
 	}
-	
+
 	function returnWithError( $err )
 	{
 		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
 	
+	function returnWithInfo( $searchResults )
+	{
+		$retValue = '{"results":[' . $searchResults . '],"error":""}';
+		sendResultInfoAsJson( $retValue );
+	}
 ?>

@@ -66,6 +66,20 @@ body {
     transition: opacity 0.1s ease-in-out, margin-bottom 0.2s ease-in-out;
 }
 
+#emailInputHint, #passwordInputHint {
+    align-self: start;
+    color: var(--text-error);
+    font-size: 0.9rem;
+    margin-top: -2rem;
+    opacity: 0;
+    transition: all 0.15s ease-in-out;
+}
+
+#emailInputHint.shown, #passwordInputHint.shown {
+    opacity: 1;
+    margin-top: -0.5rem;
+}
+
 #registerButton, #loginButton {
     margin-top: 1rem;
     font-size: 1.5rem;

@@ -1,4 +1,14 @@
 <?php
+	if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+		// return only the headers and not the content
+		// only allow CORS if we're doing a GET - i.e. no saving for now.
+		if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD']) &&
+			$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] == 'GET') {
+		header('Access-Control-Allow-Origin: *');
+		header('Access-Control-Allow-Headers: X-Requested-With');
+		}
+		exit;
+	}
 
 	$inData = getRequestInfo();
 	
@@ -22,7 +32,8 @@
 	
 		$user_Input = trim($user_Input);
 		$user_Input = explode(" ", $user_Input);
-		if (count($user_Input) > 1)
+
+		if(count($user_Input) > 1)
 		{
 			$user_Input1 = '%' . $user_Input[0] . '%'; 
 			$user_Input2 = '%' . $user_Input[1] . '%';
@@ -34,7 +45,7 @@
 		else
 		{
 			$user_Input = '%' . $user_Input[0] . '%';
-			$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ? OR Email LIKE ? OR PhoneNumber LIKE ?) AND UserID = ?");
+			$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ? OR Email LIKE ? OR phone LIKE ?) AND UserID = ?");
 			$stmt->bind_param("ssssi", $user_Input, $user_Input, $user_Input, $user_Input, $user_Id);
 		}
 
@@ -67,6 +78,7 @@
 		
 		if( $searchCount == 0 )
 		{
+			http_response_code(404);
 			returnWithError( "No Records Found" );
 		}
 		else

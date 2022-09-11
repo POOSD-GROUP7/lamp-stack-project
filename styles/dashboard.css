@@ -11,7 +11,7 @@ body {
 }
 
 #appbar {
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 #appbarContent {

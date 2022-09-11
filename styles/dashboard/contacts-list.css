@@ -129,4 +129,9 @@
     #contactsList > li.active {
         background-color: var(--primary-light);
     }
+
+    #addIcon {
+        filter: invert(0);
+    }
+
 }

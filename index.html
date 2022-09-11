@@ -17,13 +17,16 @@
         <div id="loginToggle" onclick="setLogin()" role="button">Login</div>
         <div id="registerToggle" onclick="setRegister()" role="button">Register</div>
     </div>
-    <span id="loginResult">Login Error Message Goes Here</span>
+    <span id="loginResult">👀</span>
     <div id="registerInputs">
-        <input class="textField" id="firstNameInput" placeholder="First Name" type="text"/>
-        <input class="textField" id="lastNameInput" placeholder="Last Name" type="text"/>
+        <input class="textField" id="firstNameInput" placeholder="First Name" type="text">
+        <input class="textField" id="lastNameInput" placeholder="Last Name" type="text">
     </div>
-    <input class="textField" id="emailInput" placeholder="Email" type="text"/>
-    <input class="textField" id="passwordInput" placeholder="Password" type="password"/>
+    <input class="textField" id="emailInput" onkeyup="validateEmailField(value)" placeholder="Email" type="text">
+    <span id="emailInputHint">📧</span>
+    <input class="textField" id="passwordInput" onkeyup="validatePasswordField(value)" placeholder="Password"
+           type="password">
+    <span id="passwordInputHint">🔑</span>
     <button class="button" id="loginButton" onclick="doLogin();" type="button">Login</button>
     <button class="button" id="registerButton" onclick="doRegister();" type="button">Register</button>
 </section>
