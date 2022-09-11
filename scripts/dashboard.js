@@ -12,6 +12,8 @@ const contactAdd = document.getElementById("contactAdd");
 //#endregion
 
 // Get elements from the DOM
+const currentActionText = document.getElementById("currentAction");
+
 const contactInfoContainer = document.getElementById("contactInfoContainer");
 const contactForm = document.getElementById("contactForm");
 
@@ -134,6 +136,8 @@ const processSearchChange = debounce((value) => searchContact(value));
  */
 function searchContact(searchTerm = "") {
   const searchString = searchTerm?.trim();
+
+  collapseContactDetails();
   //TODO: Perform API calls here to fetch the contacts matching the search term
 
   //get the string and format the search in JSON format
@@ -232,19 +236,27 @@ function addContact() {
 }
 
 function showAddContact() {
+  currentActionText.innerHTML = "Adding a Contact";
   selectedContactItem?.classList.remove("active");
   selectedContactItem = null;
   setContactForm();
 }
 
 function showEditContact() {
+  currentActionText.innerHTML = "Editing a Contact";
   setContactForm();
 }
 
 function showContactDetails() {
-  contactCircle.innerHTML = contacts[selectedContactItem.id].firstName[0].toUpperCase() + contacts[selectedContactItem.id].lastName[0].toUpperCase();
   contactInfoContainer.classList.remove("hidden");
   contactForm.classList.add("hidden");
+  contactCircle.innerHTML = contacts[selectedContactItem.id].firstName[0].toUpperCase() + contacts[selectedContactItem.id].lastName[0].toUpperCase();
+  contactName.innerHTML = contacts[selectedContactItem.id].firstName + " " + contacts[selectedContactItem.id].lastName;
+  emailField.innerHTML = contacts[selectedContactItem.id].email;
+  phoneField.innerHTML = contacts[selectedContactItem.id].phone;
+  addressField.innerHTML = contacts[selectedContactItem.id].address;
+  dateAddedField.innerHTML = "Added on " + contacts[selectedContactItem.id].dateAdded;
+  contactName.classList.remove("hidden");
   cancelContactButton.classList.add("hidden");
   saveContactButton.classList.add("hidden");
   addContactButton.classList.add("hidden");
@@ -259,6 +271,7 @@ function showContactDetails() {
  * @return {void}
  */
 function setActiveContact(contactItem) {
+  currentActionText.innerHTML = "Viewing a Contact";
   expandContactDetails();
 
   // If already selected, nothing needs to be done
@@ -274,13 +287,6 @@ function setActiveContact(contactItem) {
   selectedContactItem = contactItem;
 
   showContactDetails();
-
-  contactCircle.innerHTML = contacts[contactItem.id].firstName[0].toUpperCase() + contacts[contactItem.id].lastName[0].toUpperCase();
-  contactName.innerHTML = contacts[contactItem.id].firstName + " " + contacts[contactItem.id].lastName;
-  emailField.innerHTML = contacts[contactItem.id].email;
-  phoneField.innerHTML = contacts[contactItem.id].phone;
-  addressField.innerHTML = contacts[contactItem.id].address;
-  dateAddedField.innerHTML = "Added on " + contacts[contactItem.id].dateAdded;
 }
 
 /**
@@ -310,6 +316,7 @@ function setupLayoutForScreen(isSmallScreen) {
 }
 
 function collapseContactDetails() {
+  currentActionText.innerHTML = "Contact Manager";
   contactDetails.classList.add("collapsed");
   // De-select the selected contact
   selectedContactItem?.classList.remove("active");
@@ -342,8 +349,7 @@ function setContactForm() {
     document.getElementById("contactForm").reset();
 
     contactCircle.innerHTML = "?";
-    contactName.style.display = "none";
-
+    contactName.classList.add("hidden");
     addContactButton.classList.remove("hidden");
     editContactButton.classList.add("hidden");
     deleteContactButton.classList.add("hidden");
