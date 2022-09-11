@@ -11,6 +11,29 @@ const contactAdd = document.getElementById("contactAdd");
 
 //#endregion
 
+// Get elements from the DOM
+const contactInfoContainer = document.getElementById("contactInfoContainer");
+const contactForm = document.getElementById("contactForm");
+
+const contactCircle = document.getElementById("contactCircle");
+const contactName = document.getElementById("contactName");
+const emailField = document.getElementById("emailField");
+const phoneField = document.getElementById("phoneField");
+const addressField = document.getElementById("addressField");
+const dateAddedField = document.getElementById("dateAddedField");
+
+const firstNameInput = document.getElementById("firstNameInput");
+const lastNameInput = document.getElementById("lastNameInput");
+const emailInput = document.getElementById("emailInput");
+const phoneInput = document.getElementById("phoneInput");
+const addressInput = document.getElementById("addressInput");
+
+const addContactButton = document.getElementById("addContactButton");
+const editContactButton = document.getElementById("editContactButton");
+const saveContactButton = document.getElementById("saveContactButton");
+const deleteContactButton = document.getElementById("deleteContactButton");
+const cancelContactButton = document.getElementById("cancelContactButton");
+
 // Temporary contacts for testing
 let contacts = [];
 [
@@ -176,15 +199,19 @@ function searchContact(searchTerm = "") {
 }
 
 function addContact() {
-  collapseContactDetails();
-  expandAddContact();
-  let newContact = document.getElementById("contactText").value;
+  let newContact = document.getElementById("contactForm").elements;
 
-  //userId, userId?
-  let tmp = {contact: newContact, userId: userId};
+  let tmp = {
+    userId: userId,
+    firstName: newContact[0].value,
+    lastName: newContact[1].value,
+    email: newContact[2].value,
+    phone: newContact[3].value,
+    address: newContact[4].value,
+  }
   let jsonPayLoad = JSON.stringify(tmp);
 
-  let url = urlBase + "/AddContact." + extension;
+  let url = urlBase + "/AddContact.php";
 
   let xhr = new XMLHttpRequest();
   xhr.open("POST", url, true);
@@ -202,6 +229,27 @@ function addContact() {
   } catch (err) {
     document.getElementById("contactAddResult").innerHTML = err.message;
   }
+}
+
+function showAddContact() {
+  selectedContactItem?.classList.remove("active");
+  selectedContactItem = null;
+  setContactForm();
+}
+
+function showEditContact() {
+  setContactForm();
+}
+
+function showContactDetails() {
+  contactCircle.innerHTML = contacts[selectedContactItem.id].firstName[0].toUpperCase() + contacts[selectedContactItem.id].lastName[0].toUpperCase();
+  contactInfoContainer.classList.remove("hidden");
+  contactForm.classList.add("hidden");
+  cancelContactButton.classList.add("hidden");
+  saveContactButton.classList.add("hidden");
+  addContactButton.classList.add("hidden");
+  editContactButton.classList.remove("hidden");
+  deleteContactButton.classList.remove("hidden");
 }
 
 /**
@@ -225,15 +273,9 @@ function setActiveContact(contactItem) {
   }
   selectedContactItem = contactItem;
 
-  // Update the contact details
-  const contactCircle = document.getElementById("contactCircle");
-  const contactName = document.getElementById("contactName");
-  const emailField = document.getElementById("emailField");
-  const phoneField = document.getElementById("phoneField");
-  const addressField = document.getElementById("addressField");
-  const dateAddedField = document.getElementById("dateAddedField");
+  showContactDetails();
 
-  contactCircle.innerHTML = contacts[contactItem.id].firstName[0] + contacts[contactItem.id].lastName[0];
+  contactCircle.innerHTML = contacts[contactItem.id].firstName[0].toUpperCase() + contacts[contactItem.id].lastName[0].toUpperCase();
   contactName.innerHTML = contacts[contactItem.id].firstName + " " + contacts[contactItem.id].lastName;
   emailField.innerHTML = contacts[contactItem.id].email;
   phoneField.innerHTML = contacts[contactItem.id].phone;
@@ -248,15 +290,16 @@ function setActiveContact(contactItem) {
  * @return {void}
  */
 function setupLayoutForScreen(isSmallScreen) {
+  const isEditingOrAddingContact = contactInfoContainer.classList.contains("hidden");
   if (isSmallScreen) {
     smallScreen = true;
-    if (selectedContactItem) {
+    if (selectedContactItem || isEditingOrAddingContact) {
       expandContactDetails();
       collapseSearch();
     }
   } else {
     smallScreen = false;
-    if (selectedContactItem) {
+    if (selectedContactItem || isEditingOrAddingContact) {
       expandContactDetails();
       expandSearch();
     } else {
@@ -266,29 +309,11 @@ function setupLayoutForScreen(isSmallScreen) {
   }
 }
 
-function collapseAddContact() {
-  contactAdd.classList.add("collapsed");
-
-  if (smallScreen) {
-    expandSearch();
-  }
-}
-
-function expandAddContact() {
-  contactAdd.classList.remove("collapsed");
-
-  if (smallScreen) {
-    expandSearch();
-  }
-}
-
 function collapseContactDetails() {
   contactDetails.classList.add("collapsed");
   // De-select the selected contact
-  if (selectedContactItem) {
-    selectedContactItem.classList.remove("active");
-    selectedContactItem = null;
-  }
+  selectedContactItem?.classList.remove("active");
+  selectedContactItem = null;
 
   if (smallScreen) {
     expandSearch();
@@ -296,7 +321,6 @@ function collapseContactDetails() {
 }
 
 function expandContactDetails() {
-  collapseAddContact();
   contactDetails.classList.remove("collapsed");
 
   if (smallScreen) {
@@ -306,23 +330,59 @@ function expandContactDetails() {
 
 function collapseSearch() {
   search.classList.add("collapsed");
-
 }
 
 function expandSearch() {
   search.classList.remove("collapsed");
 }
 
-function updateProfileCircle() {
-  const firstName = document.getElementById("firstNameInput");
-  const lastName = document.getElementById("lastNameInput");
+function setContactForm() {
+  // Add Contact Mode
+  if (!selectedContactItem) {
+    document.getElementById("contactForm").reset();
 
-  const fname = firstName ? firstName.value : "";
-  const lname = lastName ? lastName.value : "";
-  if (fname.length > 0 && lname.length > 0) {
-    document.querySelector(".contactCircleProfile").innerHTML = (fname.charAt(0).toUpperCase() + lname.charAt(0).toUpperCase());
+    contactCircle.innerHTML = "?";
+    contactName.style.display = "none";
+
+    addContactButton.classList.remove("hidden");
+    editContactButton.classList.add("hidden");
+    deleteContactButton.classList.add("hidden");
+    cancelContactButton.classList.add("hidden");
+    saveContactButton.classList.add("hidden");
+  }
+  // Edit Contact Mode
+  else {
+    firstNameInput.value = contacts[selectedContactItem.id].firstName;
+    lastNameInput.value = contacts[selectedContactItem.id].lastName;
+    emailInput.value = contacts[selectedContactItem.id].email;
+    phoneInput.value = contacts[selectedContactItem.id].phone;
+    addressInput.value = contacts[selectedContactItem.id].address;
+    updateProfileCircle();
+
+    cancelContactButton.classList.remove("hidden");
+    saveContactButton.classList.remove("hidden");
+    addContactButton.classList.add("hidden");
+    editContactButton.classList.add("hidden");
+    deleteContactButton.classList.add("hidden");
+  }
+
+  contactInfoContainer.classList.add("hidden");
+  contactForm.classList.remove("hidden");
+  expandContactDetails();
+}
+
+function updateProfileCircle() {
+  const firstLetter = firstNameInput.value?.charAt(0).toUpperCase() || "";
+  const secondLetter = lastNameInput.value?.charAt(0).toUpperCase() || "";
+  const thirdLetter = lastNameInput.value?.split(" ")[1]?.charAt(0).toUpperCase() || "";
+  const initials = firstLetter + secondLetter + thirdLetter;
+  if (initials) {
+    contactCircle.innerHTML = firstLetter + secondLetter + thirdLetter;
+  } else {
+    contactCircle.innerHTML = "?";
   }
 }
+
 //#endregion
 
 //#region Media Queries

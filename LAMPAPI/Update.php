@@ -10,8 +10,8 @@
 		exit;
 	}
 	$inData = getRequestInfo();
-	
-    $id = $inData["ID"];
+
+    $id = $inData["id"];
 	$firstName = $inData["firstName"];
     $lastName = $inData["lastName"];
     $email = $inData["email"];
@@ -19,13 +19,13 @@
 
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
-	if ($conn->connect_error) 
+	if ($conn->connect_error)
 	{
 		returnWithError( $conn->connect_error );
-	} 
+	}
 	else
 	{
-        
+
 		$stmt = $conn->prepare("UPDATE Contacts SET FirstName = ?, LastName = ?, email = ?, phone = ? WHERE ID = ?");
 		$stmt->bind_param("sssss", $firstName, $lastName, $email, $phone, $id);
 		$stmt->execute();
@@ -44,11 +44,11 @@
 		header('Content-type: application/json');
 		echo $obj;
 	}
-	
+
 	function returnWithError( $err )
 	{
 		$retValue = '{"error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
-	
+
 ?>

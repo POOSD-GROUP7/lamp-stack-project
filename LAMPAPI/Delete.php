@@ -10,14 +10,14 @@
 		exit;
 	}
 	$inData = getRequestInfo();
-	
-	$id = $inData["ID"];
+
+	$id = $inData["id"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
-	if ($conn->connect_error) 
+	if ($conn->connect_error)
 	{
 		returnWithError( $conn->connect_error );
-	} 
+	}
 	else
 	{
 		$sql = "DELETE FROM Contacts WHERE id=$id";
@@ -41,7 +41,7 @@
 		header('Content-type: application/json');
 		echo $obj;
 	}
-	
+
 	function returnWithError( $err )
 	{
 		$retValue = '{"error":"' . $err . '"}';
@@ -53,5 +53,5 @@
 		$retValue = '{"response":"' . $msg . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
-	
+
 ?>
