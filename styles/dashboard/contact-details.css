@@ -75,6 +75,11 @@
     overflow-wrap: anywhere;
 }
 
+
+#contactName.hidden {
+    display: none;
+}
+
 #mailIcon, #phoneIcon, #addressIcon, #calendarIcon {
     padding-right: 0.75rem;
     float: left;

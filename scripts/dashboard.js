@@ -344,12 +344,15 @@ function expandSearch() {
 }
 
 function setContactForm() {
+  contactName.classList.add("hidden");
+  contactInfoContainer.classList.add("hidden");
+  contactForm.classList.remove("hidden");
+
   // Add Contact Mode
   if (!selectedContactItem) {
     document.getElementById("contactForm").reset();
 
     contactCircle.innerHTML = "?";
-    contactName.classList.add("hidden");
     addContactButton.classList.remove("hidden");
     editContactButton.classList.add("hidden");
     deleteContactButton.classList.add("hidden");
@@ -372,8 +375,6 @@ function setContactForm() {
     deleteContactButton.classList.add("hidden");
   }
 
-  contactInfoContainer.classList.add("hidden");
-  contactForm.classList.remove("hidden");
   expandContactDetails();
 }
 
