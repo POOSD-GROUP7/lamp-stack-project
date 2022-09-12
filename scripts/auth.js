@@ -166,9 +166,9 @@ function doRegister() {
       } else if (this.status === 201 || this.status === 200) {
         let jsonObject = JSON.parse(xhr.responseText);
         userId = jsonObject.userId;
-
-        firstName = jsonObject.firstName;
-        lastName = jsonObject.lastName;
+        
+        firstName = tmp.firstName;
+        lastName = tmp.lastName;
 
         saveCookie();
 
