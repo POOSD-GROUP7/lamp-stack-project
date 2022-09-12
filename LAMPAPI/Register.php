@@ -39,18 +39,11 @@
 			$stmt = $conn->prepare("INSERT into Users (FirstName, LastName, Login, Password) VALUES(?,?,?,?)");
 			$stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
 			$stmt->execute();
+			$id = $conn->insert_id;
 			$stmt->close();
 			$conn->close();
 			http_response_code(201);
-			$searchResults .= '{'.
-			
-				'"firstName": "'.$firstName.'", '.
-
-				'"lastName": "'.$lastName.'", '.
-
-				'"Login": "'.$login.'", '.
-
-				'"Password": "'.$password.''.'"}';
+			$searchResults .= '{'.'"UserID": "'.$id.''.'"}';
 
 			returnWithInfo($searchResults);
 		} else {
