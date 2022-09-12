@@ -9,6 +9,28 @@ body {
     background-color: var(--bg-paper);
 }
 
+#snackbar {
+    align-items: center;
+    backdrop-filter: blur(14px);
+    background-color: var(--bg-focus-light);
+    border-radius: 1rem;
+    bottom: 1rem;
+    color: var(--text);
+    font-size: 1.25rem;
+    left: 1rem;
+    padding: 1rem;
+    position: absolute;
+    text-align: center;
+    transition: all 0.3s ease-in-out;
+    width: 16rem;
+}
+
+#snackbar.hidden {
+    opacity: 0;
+    left: -20rem;
+}
+
+
 #appbar {
     overflow: hidden;
 }

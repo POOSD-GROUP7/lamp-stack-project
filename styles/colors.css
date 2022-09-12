@@ -2,7 +2,7 @@
 
 :root {
     --bg-paper: hsl(202 10% 95%);
-    --bg-primary: hsl(202 87% 60%);
+    --bg-primary: hsl(202 87% 40% / 0.6);
     --bg-card: hsl(202 10% 95% / 0.85);
     --bg-emphasis: hsl(0 0% 60% / 0.8);
     --bg-emphasis-light: hsl(0 0% 80% / 0.8);
@@ -21,7 +21,7 @@
 @media (prefers-color-scheme: dark) {
     :root {
         --bg-paper: hsl(202 10% 8%);
-        --bg-primary: hsl(202 87% 30%);
+        --bg-primary: hsl(202 87% 45% / 0.6);
         --bg-card: hsl(202 10% 8% / 0.85);
         --bg-emphasis: hsl(0 0% 40% / 0.8);
         --bg-emphasis-light: hsl(0 0% 20% / 0.8);

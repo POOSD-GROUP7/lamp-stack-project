@@ -11,8 +11,11 @@ const contactAdd = document.getElementById("contactAdd");
 
 //#endregion
 
-// Get elements from the DOM
+//#region Get elements from the DOM
 const currentActionText = document.getElementById("currentAction");
+const snackbar = document.getElementById("snackbar");
+
+const contactsList = document.getElementById("contactsList");
 
 const contactInfoContainer = document.getElementById("contactInfoContainer");
 const contactForm = document.getElementById("contactForm");
@@ -36,73 +39,15 @@ const saveContactButton = document.getElementById("saveContactButton");
 const deleteContactButton = document.getElementById("deleteContactButton");
 const cancelContactButton = document.getElementById("cancelContactButton");
 
-// Temporary contacts for testing
+//#endregion
+
+// Array of object containing all the contacts
 let contacts = [];
-[
-  {
-    "id": 2,
-    "firstName": "Chris",
-    "lastName": "Doe",
-    "phone": "555-555-5555",
-    "email": "chris@example.com",
-    "address": "123 Main St, Anywhere, USA",
-    "dateAdded": "August 22, 2022",
-  },
-  {
-    "id": 1,
-    "firstName": "Alex",
-    "lastName": "Doe",
-    "phone": "555-555-5555",
-    "email": "alex@example.com",
-    "address": "123 Main St, Anywhere, USA",
-    "dateAdded": "August 22, 2022",
-  },
-  {
-    "id": 5,
-    "firstName": "Walt",
-    "lastName": "Smith",
-    "phone": "555-555-5555",
-    "email": "walt@example.com",
-    "address": "123 Main St, Anywhere, USA",
-    "dateAdded": "August 23, 2022",
-  },
-  {
-    "id": 4,
-    "firstName": "Thomas",
-    "lastName": "Smith",
-    "phone": "555-555-5555",
-    "email": "thomas@example.com",
-    "address": "123 Main St, Anywhere, USA",
-    "dateAdded": "August 24, 2022",
-  },
-  {
-    "id": 3,
-    "firstName": "Joe",
-    "lastName": "Bloggs",
-    "phone": "555-555-5555",
-    "email": "bloggs@example.com",
-    "address": "1234567891011122314151617181920 Main St, Anywhere, USA",
-    "dateAdded": "August 25, 2022",
-  },
-  {
-    "id": 6,
-    "firstName": "VeryLongFirstName",
-    "lastName": "VeryLongLastNameVeryLongLastName",
-    "phone": "555-555-5555",
-    "email": "bloggs@example.com",
-    "address": "1234567891011122314151617181920 Main St, Anywhere, USA",
-    "dateAdded": "August 25, 2022",
-  },
-].forEach(contact => {
-  // Include the contact n times for testing purposes
-  for (let i = 0; i < 6; i++) {
-    contacts.push(contact);
-  }
-});
 
-// Run searchContact once on page load to populate the contact list
-searchContact();
-
+// Run searchContact once on page load to populate the contact list. Wait until the cookies are loaded
+setTimeout(() => {
+  searchContact();
+}, 0);
 
 //#region Utility Functions
 /**
@@ -141,69 +86,64 @@ function searchContact(searchTerm = "") {
   //TODO: Perform API calls here to fetch the contacts matching the search term
 
   //get the string and format the search in JSON format
-  // let tmp = { search: searchString, userId: userId };
-  // let jsonPayLoad = JSON.stringify(tmp);
-  //
-  // //redirect to the SearchContact.php endpoint
-  // let url = urlBase + '/SearchContact.' + extension;
-  //
-  // //make a new Http POST Request
-  // let xhr = new XMLHttpRequest();
-  // xhr.open("POST", url, true);
-  // xhr.setRequestHeader("Content-type", "application/json", "charset=UTF-8");
-  // try {
-  //   xhr.onreadystatechange = function () {
-  //     //when the request has been made...
-  //     if (this.readyState == 4 && this.status == 200) {
-  //       //get the reponse from the endpoint and parse it
-  //       //document.getElementById("contactSearchResult").innerHTML = "Contact(s) has been retrieved";
-  //       let jsonObject = JSON.parse(xhr.responseText);
-  //
-  //       //go through the contents of the JSON object
-  //       for (let i = 0; i < jsonObject.results.length; i++) {
-  //         listOfContacts += jsonObject.results[i];
-  //         if (i < jsonObject.results.length - 1) {
-  //           listOfContacts += "<br/>\r\n";
-  //         }
-  //       }
-  //       // document.getElementById("contactName")[0].innerHTML = listOfContacts;
-  //     }
-  //   };
-  //   xhr.send(jsonPayLoad);
-  // }
-  // catch (err) {
-  //   document.getElementById("contactsList").innerHTML = err.message;
-  // }
+  let tmp = {search: searchString, userId: userId};
+  console.log(tmp);
+  let jsonPayLoad = JSON.stringify(tmp);
 
-  let contactsList = document.getElementById("contactsList");
+  //redirect to the SearchContact.php endpoint
+  let url = urlBase + '/SearchContact.php';
 
-  if (searchString && contacts.length === 0) {
-    // If there are no contacts matching the search term, display a no results message
-    contactsList.innerHTML = "<h3 style='align-self: center'>No contacts found.</h3>";
-  } else if (contacts.length === 0) {
-    // If there are no contacts, display a no contacts message
-    contactsList.innerHTML = "<h3 style='align-self: center'>No contacts yet.</h3>";
-  } else {
-    // Else set the old contactsList to an empty string before populating it with the new contacts
-    contactsList.innerHTML = "";
-  }
+  //make a new Http POST Request
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json", "charset=UTF-8");
+  try {
+    xhr.onreadystatechange = function () {
+      if (this.readyState !== 4) {
+        return;
+      }
 
-  // Sorts and displays the contacts JSON array in the contactsList element
-  contacts
-    .sort((a, b) => a.firstName.localeCompare(b.firstName))
-    .forEach((contact, index) => {
-      const listItem = `
+      if (this.status === 404) {
+        if (searchString) {
+          // If there are no contacts matching the search term, display a no results message
+          contactsList.innerHTML = "<h3 style='align-self: center'>No contacts found.</h3>";
+        } else {
+          // If there are no contacts, display a no contacts message
+          contactsList.innerHTML = "<h3 style='align-self: center'>No contacts yet.</h3>";
+        }
+      }
+      if (this.status === 200 || this.status === 201) {
+        contacts = JSON.parse(xhr.responseText).results;
+
+        contactsList.innerHTML = "";
+        // Sorts and displays the contacts JSON array in the contactsList element
+        contacts
+          .sort((a, b) => a.firstName.localeCompare(b.firstName))
+          .forEach((contact, index) => {
+            const listItem = `
             <li id="${index}" onclick="setActiveContact(this)">
                 <button type="button">
                     <span class="contactName">${contact.firstName} ${contact.lastName}</span>
                 </button>
             </li>`;
-      contactsList.innerHTML += listItem;
-    });
+            contactsList.innerHTML += listItem;
+          });
+      }
+    };
+
+    xhr.send(jsonPayLoad);
+  } catch (err) {
+    contactsList.innerHTML = "Sorry, there was an error when searching for contacts 😭";
+  }
 }
 
 function addContact() {
-  let newContact = document.getElementById("contactForm").elements;
+  let newContact = contactForm.elements;
+
+  if (newContact[0].value === "" && newContact[1].value === "") {
+    showSnackbar("Contacts must have a name", "error");
+    return;
+  }
 
   let tmp = {
     userId: userId,
@@ -224,14 +164,24 @@ function addContact() {
 
   try {
     xhr.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+      if (this.readyState !== 4) {
+        return;
+      }
+
+      if (this.status === 200 || this.status === 201) {
+        console.log("Contact has been added");
+        showSnackbar("The contact has been added");
+        contactForm.reset();
+        // TODO: Add the new contact to the contacts array
+      } else {
+        showSnackbar("The contact could not be added", "error");
       }
     };
 
     xhr.send(jsonPayLoad);
   } catch (err) {
-    document.getElementById("contactAddResult").innerHTML = err.message;
+    console.error(err.message);
+    showSnackbar("Sorry, there was an error when adding the contact ??", "error");
   }
 }
 
@@ -388,6 +338,23 @@ function updateProfileCircle() {
   } else {
     contactCircle.innerHTML = "?";
   }
+}
+
+/**
+ * Triggers the snackbar to show a message.
+ *
+ * @param {string} message - The message to show in the snackbar.
+ * @param {string} variant - The variant of the snackbar to show.
+ * @param {number} timeout - The amount of time in milliseconds to show the snackbar for. Defaults to 4000ms.
+ * @return {void}
+ */
+function showSnackbar(message, variant = "info", timeout = 4000) {
+  snackbar.innerHTML = message;
+  snackbar.style.color = variant === "error" ? "var(--text-error)" : "var(--text)";
+  snackbar.classList.remove("hidden");
+  setTimeout(() => {
+    snackbar.classList.add("hidden");
+  }, timeout);
 }
 
 //#endregion
