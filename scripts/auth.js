@@ -13,12 +13,12 @@ const loginToggle = document.getElementById("loginToggle");
 const registerToggle = document.getElementById("registerToggle");
 const loginResult = document.getElementById("loginResult");
 const registerInputs = document.getElementById("registerInputs");
-const firstNameInput = document.getElementById("firstNameInput");
-const lastNameInput = document.getElementById("lastNameInput");
-const emailInput = document.getElementById("emailInput");
-const emailInputHint = document.getElementById("emailInputHint");
-const passwordInput = document.getElementById("passwordInput");
-const passwordInputHint = document.getElementById("passwordInputHint");
+const accountFirstNameInput = document.getElementById("firstNameInput");
+const accountLastNameInput = document.getElementById("lastNameInput");
+const accountEmailInput = document.getElementById("emailInput");
+const accountEmailInputHint = document.getElementById("emailInputHint");
+const accountPasswordInput = document.getElementById("passwordInput");
+const accountPasswordInputHint = document.getElementById("passwordInputHint");
 const loginButton = document.getElementById("loginButton");
 const registerButton = document.getElementById("registerButton");
 
@@ -27,27 +27,27 @@ loginToggle?.classList.add("active");
 
 function validateEmailField(value) {
   if (value.match(/^[^\s@]+@([^\s@.,]+.)+[^\s@.,]{2,}$/)) {
-    emailInput.classList.remove("invalid");
-    emailInputHint.classList.remove("shown");
+    accountEmailInput.classList.remove("invalid");
+    accountEmailInputHint.classList.remove("shown");
   } else if (!value.trim()) {
-    emailInput.classList.add("invalid");
-    emailInputHint.innerHTML = "Email cannot be empty.";
-    emailInputHint.classList.add("shown");
+    accountEmailInput.classList.add("invalid");
+    accountEmailInputHint.innerHTML = "Email cannot be empty.";
+    accountEmailInputHint.classList.add("shown");
   } else {
-    emailInput.classList.add("invalid");
-    emailInputHint.innerHTML = "Please enter a valid email address.";
-    emailInputHint.classList.add("shown");
+    accountEmailInput.classList.add("invalid");
+    accountEmailInputHint.innerHTML = "Please enter a valid email address.";
+    accountEmailInputHint.classList.add("shown");
   }
 }
 
 function validatePasswordField(value) {
   if (value.trim()) {
-    passwordInput.classList.remove("invalid");
-    passwordInputHint.classList.remove("shown");
+    accountPasswordInput.classList.remove("invalid");
+    accountPasswordInputHint.classList.remove("shown");
   } else {
-    passwordInput.classList.add("invalid");
-    passwordInputHint.innerHTML = "Password cannot be empty.";
-    passwordInputHint.classList.add("shown");
+    accountPasswordInput.classList.add("invalid");
+    accountPasswordInputHint.innerHTML = "Password cannot be empty.";
+    accountPasswordInputHint.classList.add("shown");
   }
 }
 
@@ -85,8 +85,8 @@ function doLogin() {
   lastName = "";
 
   let tmp = {
-    login: emailInput.value.trim(),
-    password: md5(passwordInput.value)
+    login: accountEmailInput.value.trim(),
+    password: md5(accountPasswordInput.value)
   };
   let jsonPayload = JSON.stringify(tmp);
 
@@ -142,10 +142,10 @@ function doRegister() {
   lastName = "";
 
   let tmp = {
-    firstName: firstNameInput.value.trim(),
-    lastName: lastNameInput.value.trim(),
-    login: emailInput.value.trim(),
-    password: md5(passwordInput.value)
+    firstName: accountFirstNameInput.value.trim(),
+    lastName: accountLastNameInput.value.trim(),
+    login: accountEmailInput.value.trim(),
+    password: md5(accountPasswordInput.value)
   };
   let jsonPayload = JSON.stringify(tmp);
 
@@ -189,7 +189,7 @@ function doRegister() {
 function saveCookie() {
   let minutes = 20;
   let date = new Date();
-  date.setTime(date.getTime() + (minutes * 60 * 1000));
+  date.setTime(date.getTime() + (minutes * 600 * 1000));
   document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",userId=" + userId + ";expires=" + date.toGMTString();
 }
 

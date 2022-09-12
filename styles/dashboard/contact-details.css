@@ -18,19 +18,39 @@
     transition: all 0.3s ease-out, opacity 0.1s ease-out;
 }
 
-#collapseContactDetailsButton {
+.collapseContactDetailsButton {
     position: absolute;
     left: 0;
     top: 0;
 }
 
-#contactDetails > section {
-    margin: 2rem;
+#contactDetails > section, #contactDetails > form {
+    margin-top: 2rem;
 }
 
-#contactInfo {
-    padding-top: 2rem;
+#contactDetails > section.hidden, #contactDetails > form.hidden {
+    display: none;
+}
+
+#contactInfoContainer {
     align-self: center;
+}
+
+#contactForm {
+    align-items: center;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    height: 20rem;
+    padding-top: 2rem;
+    width: 100%;
+}
+
+#contactForm > div {
+    width: 100%;
+    display: flex;
+    gap: 2rem;
 }
 
 #contactCircle {
@@ -40,7 +60,10 @@
     color: var(--text-contrast);
     display: flex;
     font-size: 3rem;
-    padding: 1.5rem;
+    width: 8rem;
+    height: 8rem;
+    align-items: center;
+    justify-content: center;
 }
 
 #contactName {
@@ -50,6 +73,11 @@
     font-weight: bold;
     color: var(--text-inactive);
     overflow-wrap: anywhere;
+}
+
+
+#contactName.hidden {
+    display: none;
 }
 
 #mailIcon, #phoneIcon, #addressIcon, #calendarIcon {
@@ -69,25 +97,38 @@
     filter: invert(40%);
 }
 
-#contactButtons {
+.contactButtons {
     position: absolute;
+    display: flex;
+    gap: 1rem;
     bottom: 3%;
     right: 3%;
 }
 
-#contactButtons > button {
+.contactButtons > button {
     display: flex;
     align-items: center;
     gap: 0.2rem;
     font-size: 1.5rem;
+    transition: all 0.2s ease-in-out;
 }
 
-#contactButtons > button > img {
+.contactButtons > button.hidden {
+    display: none;
+}
+
+.contactButtons > button > img {
     filter: invert(100%);
 }
 
+@media only screen and (max-width: 600px) {
+    #contactForm > div {
+        flex-direction: column;
+    }
+}
+
 @media (prefers-color-scheme: dark) {
-    #contactButtons > button > img {
+    .contactButtons > button > img {
         filter: invert(0%);
     }
 
@@ -95,7 +136,7 @@
         filter: invert(60%);
     }
 
-    #collapseContactDetailsButton > img {
+    .collapseContactDetailsButton > img {
         filter: invert(100%);
     }
 }
