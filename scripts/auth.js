@@ -165,7 +165,7 @@ function doRegister() {
         loginResult.classList.add("shown");
       } else if (this.status === 201 || this.status === 200) {
         let jsonObject = JSON.parse(xhr.responseText);
-        userId = jsonObject.id;
+        userId = jsonObject.userId;
 
         firstName = jsonObject.firstName;
         lastName = jsonObject.lastName;

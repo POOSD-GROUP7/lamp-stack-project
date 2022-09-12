@@ -34,7 +34,7 @@
 		$stmt->execute();
 		$result = $stmt->get_result();
 		$rows = mysqli_num_rows($result);
-		if ($rows == 0) 
+		if ($rows == 0)
 		{
 			$stmt = $conn->prepare("INSERT into Users (FirstName, LastName, Login, Password) VALUES(?,?,?,?)");
 			$stmt->bind_param("ssss", $firstName, $lastName, $login, $password);
@@ -43,7 +43,7 @@
 			$stmt->close();
 			$conn->close();
 			http_response_code(201);
-			$searchResults .= '{'.'"UserID": "'.$id.''.'"}';
+			$searchResults .= '{'.'"userId": "'.$id.''.'"}';
 
 			returnWithInfo($searchResults);
 		} else {
