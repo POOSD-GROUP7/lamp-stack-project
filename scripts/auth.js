@@ -1,4 +1,4 @@
-const urlBase = "http://ucfcontactmanager.online/LAMPAPI";
+const urlBase = "https://ucfcontactmanager.online/LAMPAPI";
 
 document.addEventListener('DOMContentLoaded', function () {
   readCookie();
@@ -166,7 +166,7 @@ function doRegister() {
       } else if (this.status === 201 || this.status === 200) {
         let jsonObject = JSON.parse(xhr.responseText);
         userId = jsonObject.userId;
-        
+
         firstName = tmp.firstName;
         lastName = tmp.lastName;
 
