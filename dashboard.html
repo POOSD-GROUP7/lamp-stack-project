@@ -109,10 +109,24 @@
                      width="24">
                 <span>SAVE</span>
             </button>
-            <button class="button hidden" id="deleteContactButton" onclick="deleteContact();" type="button">
-                <img alt="Delete icon" class="contactIcons" draggable="false" id="deleteIcon"
-                     src="public/icons/delete.svg" width="24">
-            </button>
+            <div id="deleteContactButtonContainer">
+                <p class="hidden" id="deleteContactButtonHint">Delete contact?</p>
+                <button class="button hidden" id="deleteContactButton" onclick="showConfirmForDeleteButton();"
+                        type="button">
+                    <img alt="Delete icon" class="contactIcons" draggable="false" id="deleteIcon"
+                         src="public/icons/delete.svg" width="24">
+                </button>
+                <button class="button hidden" id="cancelDeleteContactButton" onclick="hideConfirmForDeleteButton();"
+                        type="button">
+                    <img alt="Delete icon" class="contactIcons" draggable="false" id="cancelIcon"
+                         src="public/icons/close.svg" width="24">
+                </button>
+                <button class="button hidden" id="confirmDeleteContactButton" onclick="deleteContact();"
+                        type="button">
+                    <img alt="Delete icon" class="contactIcons" draggable="false" id="confirmIcon"
+                         src="public/icons/check.svg" width="24">
+                </button>
+            </div>
             <button class="button hidden" id="editContactButton" onclick="showEditContact();" type="button">
                 <img alt="Edit icon" class="contactIcons" draggable="false" id="editIcon" src="public/icons/edit.svg"
                      width="24">

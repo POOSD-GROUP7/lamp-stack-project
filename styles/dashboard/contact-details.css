@@ -7,7 +7,7 @@
     padding-right: 2%;
     width: 100%;
     transition: all 0.3s ease-out, opacity 0.3s cubic-bezier(1, -0.25, .74, .75);
-    overflow-y: scroll;
+    overflow: hidden;
 }
 
 #contactDetails.collapsed {
@@ -116,12 +116,37 @@
     transition: all 0.2s ease-in-out;
 }
 
-.contactButtons > button.hidden {
+.contactButtons button.hidden {
     display: none;
 }
 
-.contactButtons > button > img {
+.contactButtons button > img {
     filter: invert(100%);
+}
+
+#deleteContactButtonHint {
+    bottom: 2rem;
+    position: absolute;
+    transition: all 0.2s ease-in-out;
+}
+
+#deleteContactButtonHint.hidden {
+    opacity: 0;
+    bottom: 0;
+    transition: all 0s;
+}
+
+#confirmDeleteContactButton {
+    background-color: var(--text-inactive);
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+#confirmDeleteContactButton:hover {
+    background-color: var(--bg-emphasis);
+}
+
+#cancelDeleteContactButton {
+    border-radius: 0.5rem 0 0 0.5rem;
 }
 
 #cancelContactButton, #deleteContactButton {
@@ -140,7 +165,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-    .contactButtons > button > img {
+    .contactButtons button > img {
         filter: invert(0%);
     }
 

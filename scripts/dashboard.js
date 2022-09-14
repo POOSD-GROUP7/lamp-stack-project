@@ -38,8 +38,11 @@ const addressInput = document.getElementById("addressInput");
 const addContactButton = document.getElementById("addContactButton");
 const editContactButton = document.getElementById("editContactButton");
 const saveContactButton = document.getElementById("saveContactButton");
-const deleteContactButton = document.getElementById("deleteContactButton");
 const cancelContactButton = document.getElementById("cancelContactButton");
+const deleteContactButton = document.getElementById("deleteContactButton");
+const deleteContactButtonHint = document.getElementById("deleteContactButtonHint");
+const confirmDeleteContactButton = document.getElementById("confirmDeleteContactButton");
+const cancelDeleteContactButton = document.getElementById("cancelDeleteContactButton");
 
 //#endregion
 
@@ -305,6 +308,7 @@ function showAddContact() {
   currentActionText.innerHTML = "Adding a Contact";
   selectedContactItem?.classList.remove("active");
   selectedContactItem = null;
+  selectedContactId = null;
   setContactForm();
 }
 
@@ -333,6 +337,7 @@ function showContactDetails() {
 }
 
 function hideContactDetails() {
+  currentActionText.innerHTML = "Contact Manager";
   contactInfoContainer.classList.add("hidden");
   contactForm.classList.add("hidden");
   contactCircle.classList.add("hidden");
@@ -345,6 +350,20 @@ function hideContactDetails() {
   deleteContactButton.classList.add("hidden");
 }
 
+function showConfirmForDeleteButton() {
+  deleteContactButtonHint.classList.remove("hidden");
+  deleteContactButton.classList.add("hidden");
+  confirmDeleteContactButton.classList.remove("hidden");
+  cancelDeleteContactButton.classList.remove("hidden");
+}
+
+function hideConfirmForDeleteButton() {
+  deleteContactButtonHint.classList.add("hidden");
+  deleteContactButton.classList.remove("hidden");
+  confirmDeleteContactButton.classList.add("hidden");
+  cancelDeleteContactButton.classList.add("hidden");
+}
+
 /**
  * Sets the active contact state in the contact list and triggers the displaying of contact details.
  *
@@ -355,6 +374,7 @@ function setActiveContact(contactItem) {
   currentActionText.innerHTML = contactItem ? "Viewing a Contact" : "Contact Manager";
 
   if (contactItem) {
+    hideConfirmForDeleteButton();
     expandContactDetails();
 
     // If already selected, nothing needs to be done
@@ -435,6 +455,7 @@ function setContactForm() {
   contactInfoContainer.classList.add("hidden");
   contactForm.classList.remove("hidden");
   contactCircle.classList.remove("hidden");
+  hideConfirmForDeleteButton();
 
   // Add Contact Mode
   if (!selectedContactItem) {
