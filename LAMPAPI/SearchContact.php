@@ -11,7 +11,7 @@
 	}
 
 	$inData = getRequestInfo();
-	
+
 	$searchResults = "";
 	$searchCount = 0;
 
@@ -19,23 +19,23 @@
 	$user_Input = $inData["search"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
-	if ($conn->connect_error) 
+	if ($conn->connect_error)
 	{
 		returnWithError( $conn->connect_error );
-	} 
+	}
 	else
 	{
 		//$stmt = $conn->prepare("select Name from Colors where Name like ? and UserID=?");
 		//$colorName = "%" . $inData["search"] . "%";
 		//$stmt->bind_param("ss", $colorName, $inData["userId"]);
 		//$stmt->execute();
-	
+
 		$user_Input = trim($user_Input);
 		$user_Input = explode(" ", $user_Input);
 
 		if(count($user_Input) > 1)
 		{
-			$user_Input1 = '%' . $user_Input[0] . '%'; 
+			$user_Input1 = '%' . $user_Input[0] . '%';
 			$user_Input2 = '%' . $user_Input[1] . '%';
 			$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? AND LastName LIKE ?) AND UserID = ?");
 			$stmt->bind_param("ssi", $user_Input1, $user_Input2, $user_Id);
@@ -50,9 +50,9 @@
 		}
 
 		$stmt->execute();
-		
+
 		$result = $stmt->get_result();
-		
+
 		while($row = $result->fetch_assoc())
 		{
 			if( $searchCount > 0 )
@@ -62,8 +62,8 @@
 			$searchCount++;
 
 			$searchResults .= '{'.
-			
-				'"id": "'.$row["UserID"].'", '.
+
+				'"id": "'.$row["ID"].'", '.
 
 				'"firstName": "'.$row["FirstName"].'", '.
 
@@ -75,7 +75,7 @@
 		}
 
 		//$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
-		
+
 		if( $searchCount == 0 )
 		{
 			http_response_code(404);
@@ -85,7 +85,7 @@
 		{
 			returnWithInfo( $searchResults );
 		}
-		
+
 		$stmt->close();
 		$conn->close();
 	}
@@ -100,17 +100,17 @@
 		header('Content-type: application/json');
 		echo $obj;
 	}
-	
+
 	function returnWithError( $err )
 	{
 		$retValue = '{"id":0,"firstName":"","lastName":"","error":"' . $err . '"}';
 		sendResultInfoAsJson( $retValue );
 	}
-	
+
 	function returnWithInfo( $searchResults )
 	{
 		$retValue = '{"results":[' . $searchResults . '],"error":""}';
 		sendResultInfoAsJson( $retValue );
 	}
-	
+
 ?>
