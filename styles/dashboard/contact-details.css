@@ -66,6 +66,10 @@
     justify-content: center;
 }
 
+#contactCircle.hidden {
+    display: none;
+}
+
 #contactName {
     align-self: center;
     text-align: center;
@@ -74,7 +78,6 @@
     color: var(--text-inactive);
     overflow-wrap: anywhere;
 }
-
 
 #contactName.hidden {
     display: none;
@@ -120,6 +123,15 @@
 .contactButtons > button > img {
     filter: invert(100%);
 }
+
+#cancelContactButton, #deleteContactButton {
+    background-color: var(--text-inactive);
+}
+
+#cancelContactButton:hover, #deleteContactButton:hover {
+    background-color: var(--bg-emphasis);
+}
+
 
 @media only screen and (max-width: 600px) {
     #contactForm > div {

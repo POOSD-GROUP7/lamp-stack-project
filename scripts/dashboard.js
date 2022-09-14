@@ -1,5 +1,3 @@
-let selectedContactItem = null;
-
 // Tracks if the device that is used to view the page has a small screen size
 let smallScreen = false;
 
@@ -14,6 +12,8 @@ const contactAdd = document.getElementById("contactAdd");
 //#region Get elements from the DOM
 const currentActionText = document.getElementById("currentAction");
 const snackbar = document.getElementById("snackbar");
+
+const searchInput = document.getElementById("searchInput");
 
 const contactsList = document.getElementById("contactsList");
 
@@ -40,6 +40,9 @@ const deleteContactButton = document.getElementById("deleteContactButton");
 const cancelContactButton = document.getElementById("cancelContactButton");
 
 //#endregion
+
+let selectedContactItem = null;
+let selectedContactId = null;
 
 // Array of object containing all the contacts
 let contacts = [];
@@ -82,12 +85,8 @@ const processSearchChange = debounce((value) => searchContact(value));
 function searchContact(searchTerm = "") {
   const searchString = searchTerm?.trim();
 
-  collapseContactDetails();
-  //TODO: Perform API calls here to fetch the contacts matching the search term
-
   //get the string and format the search in JSON format
   let tmp = {search: searchString, userId: userId};
-  console.log(tmp);
   let jsonPayLoad = JSON.stringify(tmp);
 
   //redirect to the SearchContact.php endpoint
@@ -117,9 +116,13 @@ function searchContact(searchTerm = "") {
 
         contactsList.innerHTML = "";
         // Sorts and displays the contacts JSON array in the contactsList element
+        let selectedContactIndex;
         contacts
           .sort((a, b) => a.firstName.localeCompare(b.firstName))
           .forEach((contact, index) => {
+            if (contact.id === selectedContactId) {
+              selectedContactIndex = index;
+            }
             const listItem = `
             <li id="${index}" onclick="setActiveContact(this)">
                 <button type="button">
@@ -128,6 +131,16 @@ function searchContact(searchTerm = "") {
             </li>`;
             contactsList.innerHTML += listItem;
           });
+
+        const selectedContactItem = contactsList.children[selectedContactIndex];
+        // Bring previously selected contact back into view if it exists for this search
+        if (selectedContactItem) {
+          setActiveContact(selectedContactItem);
+        } else {
+          // Else, hide the contact details as it no longer exists for this search
+          hideContactDetails();
+          selectedContactId = null;
+        }
       }
     };
 
@@ -169,10 +182,14 @@ function addContact() {
       }
 
       if (this.status === 200 || this.status === 201) {
-        console.log("Contact has been added");
+        const contact = JSON.parse(xhr.responseText).results[0];
+
         showSnackbar("The contact has been added");
         contactForm.reset();
-        // TODO: Add the new contact to the contacts array
+
+        // Create a mock selected contact item so that searchContact knows to bring the new contact into view
+        selectedContactId = contact.ContactID;
+        searchContact();
       } else {
         showSnackbar("The contact could not be added", "error");
       }
@@ -181,7 +198,38 @@ function addContact() {
     xhr.send(jsonPayLoad);
   } catch (err) {
     console.error(err.message);
-    showSnackbar("Sorry, there was an error when adding the contact ??", "error");
+    showSnackbar("Sorry, there was an error when adding the contact", "error");
+  }
+}
+
+function deleteContact() {
+  let tmp = {id: contacts[selectedContactItem.id].id};
+  let jsonPayLoad = JSON.stringify(tmp);
+
+  let url = urlBase + "/Delete.php";
+
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+  try {
+    xhr.onreadystatechange = function () {
+      if (this.readyState !== 4) {
+        return;
+      }
+
+      if (this.status === 200 || this.status === 201) {
+        showSnackbar("The contact has been deleted");
+        hideContactDetails();
+        searchContact();
+      } else {
+        showSnackbar("The contact could not be deleted", "error");
+      }
+    };
+
+    xhr.send(jsonPayLoad);
+  } catch (err) {
+    console.error(err.message);
+    showSnackbar("Sorry, there was an error when deleting the contact", "error");
   }
 }
 
@@ -200,7 +248,10 @@ function showEditContact() {
 function showContactDetails() {
   contactInfoContainer.classList.remove("hidden");
   contactForm.classList.add("hidden");
-  contactCircle.innerHTML = contacts[selectedContactItem.id].firstName[0].toUpperCase() + contacts[selectedContactItem.id].lastName[0].toUpperCase();
+  contactDetails.classList.remove("hidden");
+  contactCircle.classList.remove("hidden");
+  console.log(contacts[selectedContactItem.id]);
+  updateProfileCircle(contacts[selectedContactItem.id].firstName, contacts[selectedContactItem.id].lastName);
   contactName.innerHTML = contacts[selectedContactItem.id].firstName + " " + contacts[selectedContactItem.id].lastName;
   emailField.innerHTML = contacts[selectedContactItem.id].email;
   phoneField.innerHTML = contacts[selectedContactItem.id].phone;
@@ -214,29 +265,47 @@ function showContactDetails() {
   deleteContactButton.classList.remove("hidden");
 }
 
+function hideContactDetails() {
+  contactInfoContainer.classList.add("hidden");
+  contactForm.classList.add("hidden");
+  contactCircle.classList.add("hidden");
+  contactName.classList.remove("hidden");
+  contactName.innerHTML = "No Contact Selected";
+  cancelContactButton.classList.add("hidden");
+  saveContactButton.classList.add("hidden");
+  addContactButton.classList.add("hidden");
+  editContactButton.classList.add("hidden");
+  deleteContactButton.classList.add("hidden");
+}
+
 /**
  * Sets the active contact state in the contact list and triggers the displaying of contact details.
  *
- * @param {HTMLElement} contactItem - The contact item to set as active.
+ * @param {HTMLElement} contactItem - The contact item to set as active. if null, the active contact will be cleared.
  * @return {void}
  */
 function setActiveContact(contactItem) {
-  currentActionText.innerHTML = "Viewing a Contact";
-  expandContactDetails();
+  currentActionText.innerHTML = contactItem ? "Viewing a Contact" : "Contact Manager";
+  console.log(contactItem);
+  if (contactItem) {
+    expandContactDetails();
 
-  // If already selected, nothing needs to be done
-  if (contactItem.isSameNode(selectedContactItem)) {
-    return;
+    // If already selected, nothing needs to be done
+    if (contactItem.isSameNode(selectedContactItem)) {
+      return;
+    }
+
+    contactItem.classList.add("active");
+    // If there is a selected contact, remove the active state from it
+    if (selectedContactItem) {
+      selectedContactItem.classList.remove("active");
+    }
+    selectedContactItem = contactItem;
+
+    showContactDetails();
+  } else {
+    hideContactDetails();
   }
-
-  contactItem.classList.add("active");
-  // If there is a selected contact, remove the active state from it
-  if (selectedContactItem) {
-    selectedContactItem.classList.remove("active");
-  }
-  selectedContactItem = contactItem;
-
-  showContactDetails();
 }
 
 /**
@@ -297,6 +366,7 @@ function setContactForm() {
   contactName.classList.add("hidden");
   contactInfoContainer.classList.add("hidden");
   contactForm.classList.remove("hidden");
+  contactCircle.classList.remove("hidden");
 
   // Add Contact Mode
   if (!selectedContactItem) {
@@ -328,10 +398,10 @@ function setContactForm() {
   expandContactDetails();
 }
 
-function updateProfileCircle() {
-  const firstLetter = firstNameInput.value?.charAt(0).toUpperCase() || "";
-  const secondLetter = lastNameInput.value?.charAt(0).toUpperCase() || "";
-  const thirdLetter = lastNameInput.value?.split(" ")[1]?.charAt(0).toUpperCase() || "";
+function updateProfileCircle(firstName = firstNameInput.value, lastName = lastNameInput.value) {
+  const firstLetter = firstName?.charAt(0).toUpperCase() || "";
+  const secondLetter = lastName?.charAt(0).toUpperCase() || "";
+  const thirdLetter = lastName?.split(" ")[1]?.charAt(0).toUpperCase() || "";
   const initials = firstLetter + secondLetter + thirdLetter;
   if (initials) {
     contactCircle.innerHTML = firstLetter + secondLetter + thirdLetter;
