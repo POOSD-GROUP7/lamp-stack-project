@@ -43,8 +43,7 @@
 			$user_Input2 = '%' . $user_Input[1] . '%';
 			$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? AND LastName LIKE ?) AND UserID = ?");
 			$stmt->bind_param("ssi", $user_Input1, $user_Input2, $user_Id);
-			//$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? AND LastName LIKE ?) AND UserID = ?");
-			//$stmt->bind_param("ssi", $user_Input1, $user_Input2, $user_Id);
+		
 		}
 		else
 		{
@@ -81,8 +80,6 @@
 
 				'"phone": "'.$row["phone"].''.'"}';
 		}
-
-		//$retValue = '{"id":' . $id . ',"firstName":"' . $firstName . '","lastName":"' . $lastName . '","error":""}';
 
 		if( $searchCount == 0 )
 		{
