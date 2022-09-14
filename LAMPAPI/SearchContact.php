@@ -10,6 +10,10 @@
 		exit;
 	}
 
+	// ini_set('display_errors', 1);
+    // ini_set('display_startup_errors', 1);
+    // error_reporting(E_ALL);
+
 	$inData = getRequestInfo();
 
 	$searchResults = "";
@@ -70,6 +74,10 @@
 				'"lastName": "'.$row["LastName"].'", '.
 
 				'"email": "'.$row["email"].'", '.
+				
+				'"address": "'.$row["address"].'", '.
+
+				'"createdAt": "'.$row["createdAt"].'", '.
 
 				'"phone": "'.$row["phone"].''.'"}';
 		}

@@ -17,6 +17,7 @@
 	$phone = $inData["phone"];
 	$firstName = $inData["firstName"];
 	$lastName = $inData["lastName"];
+	$address = $inData["address"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error)
@@ -25,13 +26,15 @@
 	}
 	else
 	{
-		$stmt = $conn->prepare("INSERT into Contacts (FirstName,LastName, email, phone, UserID) VALUES(?,?,?,?,?)");
-		$stmt->bind_param("sssss", $firstName, $lastName, $email, $phone, $userId);
+		$stmt = $conn->prepare("INSERT into Contacts (FirstName,LastName, email, phone, UserID, address) VALUES(?,?,?,?,?, ?)");
+		$stmt->bind_param("ssssss", $firstName, $lastName, $email, $phone, $userId, $address);
 		$stmt->execute();
+		$ContactID = $conn->insert_id;
 		$stmt->close();
 		$conn->close();
 		http_response_code(201);
-		returnWithInfo("Succesful Contact added");
+		$searchResults .= '{'.'"ContactID": "'.$ContactID.''.'"}';
+		returnWithInfo($searchResults);
 	}
 
 	function getRequestInfo()
