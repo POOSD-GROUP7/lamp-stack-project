@@ -274,6 +274,8 @@ function saveContact() {
 }
 
 function deleteContact() {
+  hideConfirmForDeleteButton();
+
   let tmp = {id: contacts[selectedContactItem.id].id};
   let jsonPayLoad = JSON.stringify(tmp);
 
