@@ -112,7 +112,14 @@ function searchContact(searchTerm = "") {
         }
       }
       if (this.status === 200 || this.status === 201) {
-        contacts = JSON.parse(xhr.responseText).results;
+        contacts = JSON.parse(xhr.responseText).results.map((contact) => {
+          return {
+            ...contact,
+            createdAt: new Intl.DateTimeFormat('en-US', {
+              dateStyle: 'long',
+            }).format(new Date(contact.createdAt)),
+          };
+        });
 
         contactsList.innerHTML = "";
         // Sorts and displays the contacts JSON array in the contactsList element
@@ -146,7 +153,8 @@ function searchContact(searchTerm = "") {
 
     xhr.send(jsonPayLoad);
   } catch (err) {
-    contactsList.innerHTML = "Sorry, there was an error when searching for contacts 😭";
+    console.error(err);
+    showSnackbar("Error searching for contacts.", "error");
   }
 }
 
@@ -256,7 +264,7 @@ function showContactDetails() {
   emailField.innerHTML = contacts[selectedContactItem.id].email;
   phoneField.innerHTML = contacts[selectedContactItem.id].phone;
   addressField.innerHTML = contacts[selectedContactItem.id].address;
-  dateAddedField.innerHTML = "Added on " + contacts[selectedContactItem.id].dateAdded;
+  dateAddedField.innerHTML = "Added on " + contacts[selectedContactItem.id].createdAt;
   contactName.classList.remove("hidden");
   cancelContactButton.classList.add("hidden");
   saveContactButton.classList.add("hidden");
