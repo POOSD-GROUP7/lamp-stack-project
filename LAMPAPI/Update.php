@@ -9,6 +9,11 @@
 		}
 		exit;
 	}
+
+	// ini_set('display_errors', 1);
+    // ini_set('display_startup_errors', 1);
+    // error_reporting(E_ALL);
+	
 	$inData = getRequestInfo();
 
     $id = $inData["id"];
@@ -16,7 +21,7 @@
     $lastName = $inData["lastName"];
     $email = $inData["email"];
     $phone = $inData["phone"];
-
+	$address = $inData["address"];
 
 	$conn = new mysqli("localhost", "TheBeast", "WeLoveCOP4331", "COP4331");
 	if ($conn->connect_error)
@@ -26,8 +31,8 @@
 	else
 	{
 
-		$stmt = $conn->prepare("UPDATE Contacts SET FirstName = ?, LastName = ?, email = ?, phone = ? WHERE ID = ?");
-		$stmt->bind_param("sssss", $firstName, $lastName, $email, $phone, $id);
+		$stmt = $conn->prepare("UPDATE Contacts SET FirstName = ?, LastName = ?, email = ?, phone = ?, address = ? WHERE ID = ?");
+		$stmt->bind_param("ssssss", $firstName, $lastName, $email, $phone, $address, $id);
 		$stmt->execute();
 		$stmt->close();
 		$conn->close();
