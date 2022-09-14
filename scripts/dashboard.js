@@ -1,6 +1,8 @@
 // Tracks if the device that is used to view the page has a small screen size
 let smallScreen = false;
 
+let snackbarTimer = null;
+
 //#region DOM Element declarations
 
 const search = document.getElementById("search");
@@ -114,7 +116,12 @@ function searchContact(searchTerm = "") {
       if (this.status === 200 || this.status === 201) {
         contacts = JSON.parse(xhr.responseText).results.map((contact) => {
           return {
-            ...contact,
+            id: contact.id,
+            firstName: contact.firstName,
+            lastName: contact.lastName,
+            email: contact.email || "N/A",
+            phone: contact.phone || "N/A",
+            address: contact.address || "N/A",
             createdAt: new Intl.DateTimeFormat('en-US', {
               dateStyle: 'long',
             }).format(new Date(contact.createdAt)),
@@ -210,6 +217,59 @@ function addContact() {
   }
 }
 
+function saveContact() {
+  // Get the contact details from the form
+  const contact = {
+    id: selectedContactId,
+    firstName: firstNameInput.value,
+    lastName: lastNameInput.value,
+    email: emailInput.value,
+    phone: phoneInput.value,
+    address: addressInput.value,
+  };
+  const oldContact = contacts[selectedContactItem.id];
+
+  if (contact.firstName === "" && contact.lastName === "") {
+    showSnackbar("Contacts must have a name", "error");
+    return;
+  } else if (contact.firstName === oldContact.firstName && contact.lastName === oldContact.lastName &&
+    contact.email === oldContact.email && contact.phone === oldContact.phone && contact.address === oldContact.address) {
+    showSnackbar("No changes to save");
+    return;
+  }
+
+  let jsonPayLoad = JSON.stringify(contact);
+
+  let url = urlBase + "/Update.php";
+
+  let xhr = new XMLHttpRequest();
+  xhr.open("POST", url, true);
+
+  xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+  try {
+    xhr.onreadystatechange = function () {
+      if (this.readyState !== 4) {
+        return;
+      }
+
+      if (this.status === 200 || this.status === 201) {
+        showSnackbar("The contact has been updated");
+        // Update the contact in the contacts array
+        contacts[selectedContactItem.id] = contact;
+        showContactDetails();
+      } else {
+        showSnackbar("The contact could not be updated", "error");
+      }
+    };
+
+    xhr.send(jsonPayLoad);
+  } catch (err) {
+    console.error(err.message);
+    showSnackbar("Sorry, there was an error when updating the contact", "error");
+  }
+}
+
 function deleteContact() {
   let tmp = {id: contacts[selectedContactItem.id].id};
   let jsonPayLoad = JSON.stringify(tmp);
@@ -258,7 +318,6 @@ function showContactDetails() {
   contactForm.classList.add("hidden");
   contactDetails.classList.remove("hidden");
   contactCircle.classList.remove("hidden");
-  console.log(contacts[selectedContactItem.id]);
   updateProfileCircle(contacts[selectedContactItem.id].firstName, contacts[selectedContactItem.id].lastName);
   contactName.innerHTML = contacts[selectedContactItem.id].firstName + " " + contacts[selectedContactItem.id].lastName;
   emailField.innerHTML = contacts[selectedContactItem.id].email;
@@ -294,7 +353,7 @@ function hideContactDetails() {
  */
 function setActiveContact(contactItem) {
   currentActionText.innerHTML = contactItem ? "Viewing a Contact" : "Contact Manager";
-  console.log(contactItem);
+
   if (contactItem) {
     expandContactDetails();
 
@@ -309,6 +368,7 @@ function setActiveContact(contactItem) {
       selectedContactItem.classList.remove("active");
     }
     selectedContactItem = contactItem;
+    selectedContactId = contacts[selectedContactItem.id].id;
 
     showContactDetails();
   } else {
@@ -427,10 +487,11 @@ function updateProfileCircle(firstName = firstNameInput.value, lastName = lastNa
  * @return {void}
  */
 function showSnackbar(message, variant = "info", timeout = 4000) {
+  clearTimeout(snackbarTimer);
   snackbar.innerHTML = message;
   snackbar.style.color = variant === "error" ? "var(--text-error)" : "var(--text)";
   snackbar.classList.remove("hidden");
-  setTimeout(() => {
+  snackbarTimer = setTimeout(() => {
     snackbar.classList.add("hidden");
   }, timeout);
 }
