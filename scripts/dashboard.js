@@ -62,10 +62,10 @@ setTimeout(() => {
  * Delays the execution of a function ignoring any change until no more change is detected in the timeout specified.
  *
  * @param {function} func - The function to execute after the timeout.
- * @param {number} [timeout] - The time to wait before executing the function. Optional, defaults to 300ms.
+ * @param {number} [timeout] - The time to wait before executing the function. Optional, defaults to 250ms.
  * @return {(function(...[*]): void)|*} - The debounced function.
  */
-function debounce(func, timeout = 300) {
+function debounce(func, timeout = 250) {
   let timer;
   return (...args) => {
     clearTimeout(timer);
