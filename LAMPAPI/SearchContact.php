@@ -48,7 +48,7 @@
 		else
 		{
 			$user_Input = '%' . $user_Input[0] . '%';
-			$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ? OR Email LIKE ? OR phone LIKE ? OR address LIKE ?) AND UserID = ?");
+			$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? OR LastName LIKE ? OR email LIKE ? OR phone LIKE ? OR address LIKE ?) AND UserID = ?");
 			$stmt->bind_param("sssssi", $user_Input, $user_Input, $user_Input, $user_Input, $user_Input, $user_Id);
 		}
 
