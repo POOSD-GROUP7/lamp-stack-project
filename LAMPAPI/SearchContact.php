@@ -36,7 +36,7 @@
 		//$stmt->bind_param("ss", $colorName, $inData["userId"]);
 		//$stmt->execute();
 
-		$text = '%' . $user_Input. '%';
+		$text = '%' . $user_Input . '%';
 
 		$user_Input = trim($user_Input);
 		$user_Input = explode(" ", $user_Input);
