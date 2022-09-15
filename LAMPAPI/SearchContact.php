@@ -46,7 +46,7 @@
 			$user_Input1 = '%' . $user_Input[0] . '%';
 			$user_Input2 = '%' . $user_Input[1] . '%';
 			$stmt = $conn->prepare("SELECT * FROM Contacts WHERE ((FirstName LIKE ? AND LastName LIKE ?) OR address LIKE ?) AND UserID = ?");
-			$stmt->bind_param("ssi", $user_Input1, $user_Input2, $text, $user_Id);
+			$stmt->bind_param("sssi", $user_Input1, $user_Input2, $text, $user_Id);
 
 		}
 		else
