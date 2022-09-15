@@ -19,6 +19,8 @@
 	$searchResults = "";
 	$searchCount = 0;
 
+
+
 	$user_Id = $inData["userId"];
 	$user_Input = $inData["search"];
 
@@ -34,6 +36,8 @@
 		//$stmt->bind_param("ss", $colorName, $inData["userId"]);
 		//$stmt->execute();
 
+		$text = '%' . $user_Input. '%';
+
 		$user_Input = trim($user_Input);
 		$user_Input = explode(" ", $user_Input);
 
@@ -41,8 +45,8 @@
 		{
 			$user_Input1 = '%' . $user_Input[0] . '%';
 			$user_Input2 = '%' . $user_Input[1] . '%';
-			$stmt = $conn->prepare("SELECT * FROM Contacts WHERE (FirstName LIKE ? AND LastName LIKE ?) AND UserID = ?");
-			$stmt->bind_param("ssi", $user_Input1, $user_Input2, $user_Id);
+			$stmt = $conn->prepare("SELECT * FROM Contacts WHERE ((FirstName LIKE ? AND LastName LIKE ?) OR address LIKE ?) AND UserID = ?");
+			$stmt->bind_param("ssi", $user_Input1, $user_Input2, $text, $user_Id);
 
 		}
 		else
