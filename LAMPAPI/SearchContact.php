@@ -37,6 +37,7 @@
 		//$stmt->execute();
 
 		$text = '%' . $user_Input . '%';
+		console.log($text);
 
 		$user_Input = trim($user_Input);
 		$user_Input = explode(" ", $user_Input);
