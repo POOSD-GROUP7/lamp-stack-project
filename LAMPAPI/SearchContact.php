@@ -66,7 +66,7 @@
 
 			$searchResults .= '{'.
 
-				'"id": "'.$row["UserID"].'", '.
+				'"id": "'.$row["ID"].'", '.
 
 				'"firstName": "'.$row["FirstName"].'", '.
 
