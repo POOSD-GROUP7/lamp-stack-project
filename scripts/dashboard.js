@@ -260,6 +260,8 @@ function saveContact() {
         showSnackbar("The contact has been updated");
         // Update the contact in the contacts array
         contacts[selectedContactItem.id] = contact;
+        // Update the contact in the contacts list
+        selectedContactItem.querySelector(".contactName").textContent = `${contact.firstName} ${contact.lastName}`;
         showContactDetails();
       } else {
         showSnackbar("The contact could not be updated", "error");
