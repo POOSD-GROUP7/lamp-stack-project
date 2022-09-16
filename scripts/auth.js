@@ -26,7 +26,7 @@ const registerButton = document.getElementById("registerButton");
 loginToggle?.classList.add("active");
 
 function validateEmailField(value) {
-  if (value.match(/^[^\s@]+@([^\s@.,]+.)+[^\s@.,]{2,}$/)) {
+  if (value.match(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)) {
     accountEmailInput.classList.remove("invalid");
     accountEmailInputHint.classList.remove("shown");
   } else if (!value.trim()) {
