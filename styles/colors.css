@@ -23,9 +23,9 @@
         --bg-paper: hsl(202 10% 8%);
         --bg-primary: hsl(202 87% 45% / 0.6);
         --bg-card: hsl(202 10% 8% / 0.85);
-        --bg-emphasis: hsl(0 0% 40% / 0.8);
-        --bg-emphasis-light: hsl(0 0% 20% / 0.8);
-        --bg-emphasis-dark: hsl(0 0% 10% / 0.8);
+        --bg-emphasis: hsl(0 0% 70% / 0.8);
+        --bg-emphasis-light: hsl(0 0% 90% / 0.8);
+        --bg-emphasis-dark: hsl(0 0% 50% / 0.8);
         --bg-focus-light: hsl(0 0% 100% / 0.1);
         --bg-focus: hsl(0 0% 100% / 0.2);
         --primary: hsl(202 87% 65%);

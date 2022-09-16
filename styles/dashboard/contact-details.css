@@ -137,12 +137,12 @@
 }
 
 #confirmDeleteContactButton {
-    background-color: var(--text-inactive);
+    background-color: var(--bg-emphasis);
     border-radius: 0 0.5rem 0.5rem 0;
 }
 
 #confirmDeleteContactButton:hover {
-    background-color: var(--bg-emphasis);
+    background-color: var(--bg-emphasis-dark);
 }
 
 #cancelDeleteContactButton {
@@ -150,11 +150,11 @@
 }
 
 #cancelContactButton, #deleteContactButton {
-    background-color: var(--text-inactive);
+    background-color: var(--bg-emphasis);
 }
 
 #cancelContactButton:hover, #deleteContactButton:hover {
-    background-color: var(--bg-emphasis);
+    background-color: var(--bg-emphasis-dark);
 }
 
 
