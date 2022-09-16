@@ -119,12 +119,7 @@ function searchContact(searchTerm = "") {
       if (this.status === 200 || this.status === 201) {
         contacts = JSON.parse(xhr.responseText).results.map((contact) => {
           return {
-            id: contact.id,
-            firstName: contact.firstName,
-            lastName: contact.lastName,
-            email: contact.email || "N/A",
-            phone: contact.phone || "N/A",
-            address: contact.address || "N/A",
+            ...contact,
             createdAt: new Intl.DateTimeFormat('en-US', {
               dateStyle: 'long',
             }).format(new Date(contact.createdAt)),
@@ -169,20 +164,18 @@ function searchContact(searchTerm = "") {
 }
 
 function addContact() {
-  let newContact = contactForm.elements;
-
-  if (newContact[0].value === "" && newContact[1].value === "") {
+  if (firstNameInput.value.trim() === "" && lastNameInput.value.trim() === "") {
     showSnackbar("Contacts must have a name", "error");
     return;
   }
 
   let tmp = {
     userId: userId,
-    firstName: newContact[0].value,
-    lastName: newContact[1].value,
-    email: newContact[2].value,
-    phone: newContact[3].value,
-    address: newContact[4].value,
+    firstName: firstNameInput.value,
+    lastName: lastNameInput.value,
+    email: emailInput.value.trim() || "N/A",
+    phone: phoneInput.value.trim() || "N/A",
+    address: addressInput.value.trim() || "N/A",
   }
   let jsonPayLoad = JSON.stringify(tmp);
 
@@ -226,9 +219,9 @@ function saveContact() {
     id: selectedContactId,
     firstName: firstNameInput.value,
     lastName: lastNameInput.value,
-    email: emailInput.value,
-    phone: phoneInput.value,
-    address: addressInput.value,
+    email: emailInput.value.trim() || "N/A",
+    phone: phoneInput.value.trim() || "N/A",
+    address: addressInput.value.trim() || "N/A",
   };
   const oldContact = contacts[selectedContactItem.id];
 
