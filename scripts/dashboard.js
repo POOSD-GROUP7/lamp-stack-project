@@ -77,7 +77,7 @@ function debounce(func, timeout = 250) {
 
 //#endregion
 
-const processSearchChange = debounce((value) => searchContact(value));
+const processSearchChange = debounce((value) => searchContact(value, !smallScreen));
 
 //#region Render Functions
 
@@ -85,9 +85,10 @@ const processSearchChange = debounce((value) => searchContact(value));
  * Calls the API to search for the contact that matches the search term passed
  *
  * @param {string} [searchTerm] - The search term to use to search for a contact. Optional, defaults to an empty string.
+ * @param {boolean} [keepSelectedContact] - Whether to keep the selected contact after the search is complete. Optional, defaults to true.
  * @return {void}
  */
-function searchContact(searchTerm = "") {
+function searchContact(searchTerm = "", keepSelectedContact = true) {
   const searchString = searchTerm?.trim();
 
   //get the string and format the search in JSON format
@@ -115,8 +116,7 @@ function searchContact(searchTerm = "") {
           // If there are no contacts, display a no contacts message
           contactsList.innerHTML = "<h3 style='align-self: center'>No contacts yet.</h3>";
         }
-      }
-      if (this.status === 200 || this.status === 201) {
+      } else if (this.status === 200 || this.status === 201) {
         contacts = JSON.parse(xhr.responseText).results.map((contact) => {
           return {
             ...contact,
@@ -146,7 +146,7 @@ function searchContact(searchTerm = "") {
 
         const selectedContactItem = contactsList.children[selectedContactIndex];
         // Bring previously selected contact back into view if it exists for this search
-        if (selectedContactItem) {
+        if (selectedContactItem && keepSelectedContact) {
           setActiveContact(selectedContactItem);
         } else {
           // Else, hide the contact details as it no longer exists for this search
