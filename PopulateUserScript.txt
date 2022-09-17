@@ -1,0 +1,10 @@
+insert into Contacts (FirstName,LastName, email, phone, address, UserID) VALUES ('John', 'Smith', 'jnsmith@example.com', '555-555-5555', '123 Main St., Apt 101', 60);
+insert into Contacts (FirstName,LastName, email, phone, address, UserID) VALUES ('Jane', 'Doe', 'janedoe123@example.com', '123-456-7890', '456 Palm St.', 60);
+insert into Contacts (FirstName,LastName, email, phone, address, UserID) VALUES ('Thomas', 'Anderson', 'thomasand77@example.com', '098-765-4321', '789 Some St.', 60);
+insert into Contacts (FirstName,LastName, email, phone, address, UserID) VALUES ('Andres', 'Garcia Lopez', 'andygarcia@example.com', '222-222-2222', '777 Royal Blvd.', 60);
+insert into Contacts (FirstName,LastName, email, phone, address, UserID) VALUES ('Sally', 'Jones', 'sallyjones@example.com', '333-333-3333', '888 New Blvd.', 60);
+insert into Contacts (FirstName,LastName, email, phone, address, UserID) VALUES ('Arthur', 'Morgan', 'arthur1843@example.com', 'N/A', '999 Old St.', 60);
+insert into Contacts (FirstName,LastName, email, phone, address, UserID) VALUES ('John', 'Marston', 'john1873@example.com', 'N/A', '1111 Western Rd.', 60);
+insert into Contacts (FirstName,LastName, email, phone, address, UserID) VALUES ('Vincent', '', 'vincent@example.com', 'N/A', '2222 Future St., Apt 407', 60);
+insert into Contacts (FirstName,LastName, email, phone, address, UserID) VALUES ('Eve', '', 'N/A', 'N/A', '1287 Alternate St.', 60);
+insert into Contacts (FirstName,LastName, email, phone, address, UserID) VALUES ('Laurel', 'Brown', 'N/A', 'N/A', 'N/A', 60);
