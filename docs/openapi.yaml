@@ -1,0 +1,253 @@
+openapi: 3.0.3
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: >-
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: aaronel@knights.ucf.edu
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: https://ucfcontactmanager.online/LAMPAPI
+tags:
+  - name: contacts
+    description: access contact info
+  - name: user
+    description: Operations about user
+paths:
+  /AddContact.php:
+    post:
+      tags:
+        - contacts
+      summary: Add a contact
+      description: Add a contact
+      requestBody:
+        description: Add contact
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Contact'
+      responses:
+        '201':
+          description: Successful creation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+  # /Delete.php:
+  #   delete:
+  #     tags:
+  #       - contacts
+  #     summary: Delete a contact
+  #     description: Delete Contact by id
+  #     content:
+  #       application/json:
+  #         schema:
+  #           $ref: '#/components/schemas/ContactId'
+          
+  #     responses:
+  #       '200':
+  #         description: Successful Deletion
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/Contact'
+  #       '400':
+  #         description: Invalid ID supplied
+  #       '404':
+  #         description: Contact not found
+  #       '405':
+  #         description: Validation exception
+  /SearchContact.php:
+    get:
+      tags:
+        - contacts
+      summary: Find contact
+      description: Returns contact matches
+      parameters:
+        - name: Searchbar
+          in: query
+          description: something to search on
+          schema:
+            type: string
+        - name: UserID 
+          in: query
+          description: User id for search
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Contact'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Nothing found
+  /Update.php:
+    put:
+      tags:
+        - contacts
+      summary: update a contact
+      description: update a contact
+      requestBody:
+        description: update contact
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateContact'
+      responses:
+        '200':
+          description: Successful update
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateContact'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+
+  /Register.php:
+    post:
+      tags:
+        - user
+      summary: Register new user
+      description: register new user
+      requestBody:
+        description: Add user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/user'
+      responses:
+        '201':
+          description: Successful creation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+
+  /Login.php:
+    post:
+      tags:
+        - user
+      summary: Login new user
+      description: Login new user
+      requestBody:
+        description: Login user
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/loginUser'
+      responses:
+        '201':
+          description: Successful creation
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '405':
+          description: Validation exception
+
+components:
+  schemas:
+    Contact:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+          example: 5
+        email:
+          type: string
+          description: Email of contact
+          example: "***@knights.ucf.edu"
+        phone:
+          type: string
+          description: Phone number
+          example: "(407)-525-3242"
+        firstName:
+          type: string
+          description: first name
+          example: "Thomas"
+        lastName:
+          type: string
+          description: last name
+          example: "Shelby"
+        address:
+          type: string
+          description: Contact address
+    UpdateContact:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "2"
+        email:
+          type: string
+          description: Email of contact
+          example: "***@knights.ucf.edu"
+        phone:
+          type: string
+          description: Phone number
+          example: "(407)-525-3242"
+        firstName:
+          type: string
+          description: first name
+          example: "Thomas"
+        lastName:
+          type: string
+          description: last name
+          example: "Shelby"
+        address:
+          type: string
+          description: Contact address
+
+    user:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: first name
+          example: "Thomas"
+        lastName:
+          type: string
+          description: last name
+          example: "Shelby"
+        login:
+          type: string
+          description: username (email)
+          example: "***@knights.ucf.edu"
+        password:
+          type: string
+          description: password
+          example: "password123"
+    loginUser:
+      type: object
+      properties:
+        login:
+          type: string
+          description: username (email)
+          example: "***@knights.ucf.edu"
+        password:
+          type: string
+          description: password
+          example: "password123"
