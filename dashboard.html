@@ -85,15 +85,31 @@
         </section>
         
         <form class="hidden" id="contactForm">
-            <div>
-                <input class="textField" id="firstNameInput" oninput="updateProfileCircle();" placeholder="First name"
-                       type="text">
-                <input class="textField" id="lastNameInput" oninput="updateProfileCircle();" placeholder="Last name"
-                       type="text">
+            <div id="contactFormName">
+                <div>
+                    <label for="firstNameInput">First Name</label>
+                    <input class="textField" id="firstNameInput" oninput="updateProfileCircle();"
+                           placeholder="First name"
+                           type="text">
+                </div>
+                <div>
+                    <label for="lastNameInput">Last Name</label>
+                    <input class="textField" id="lastNameInput" oninput="updateProfileCircle();" placeholder="Last name"
+                           type="text">
+                </div>
             </div>
-            <input class="textField" id="emailInput" placeholder="Email" type="text">
-            <input class="textField" id="phoneInput" placeholder="Phone" type="text">
-            <input class="textField" id="addressInput" placeholder="Address" type="text">
+            <div>
+                <label for="emailInput">Email</label>
+                <input class="textField" id="emailInput" placeholder="Email" type="text">
+            </div>
+            <div>
+                <label for="phoneInput">Phone</label>
+                <input class="textField" id="phoneInput" placeholder="Phone" type="text">
+            </div>
+            <div>
+                <label for="addressInput">Address</label>
+                <input class="textField" id="addressInput" placeholder="Address" type="text">
+            </div>
         </form>
         
         <div class="contactButtons">

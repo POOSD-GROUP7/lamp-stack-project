@@ -41,17 +41,36 @@
     align-self: center;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1rem;
     height: 20rem;
     padding-top: 2rem;
     width: 100%;
 }
 
-#contactForm > div {
+#contactForm label {
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+}
+
+#contactForm > div:nth-child(1) {
+    align-self: start;
+    display: flex;
+    width: 97.5%;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+
+#contactForm div {
     width: 100%;
     display: flex;
-    gap: 2rem;
+    flex-direction: column;
 }
+
+#contactForm input {
+
+}
+
 
 #contactCircle {
     align-self: center;
@@ -159,8 +178,21 @@
 
 
 @media only screen and (max-width: 600px) {
-    #contactForm > div {
+    #contactDetails > section, #contactDetails > form {
+        margin-top: 1rem;
+    }
+
+    #contactForm {
+        padding-top: 0;
+    }
+
+    #contactForm > div:nth-child(1) {
+        width: 100%;
         flex-direction: column;
+    }
+
+    #contactForm label {
+        margin: 0;
     }
 }
 
