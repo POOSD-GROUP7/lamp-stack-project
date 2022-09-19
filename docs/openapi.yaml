@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Swagger Petstore - OpenAPI 3.0
+  title: Contact Manager Group 7 - OpenAPI 3.0
   description: >-
   termsOfService: http://swagger.io/terms/
   contact:
@@ -8,11 +8,14 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-  version: 1.0.11
+  version: 1.0.0
 externalDocs:
   description: Find out more about Swagger
   url: http://swagger.io
 servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/AARONEL_1/ContactManager/1.0.0
   - url: https://ucfcontactmanager.online/LAMPAPI
 tags:
   - name: contacts
@@ -41,8 +44,6 @@ paths:
                 $ref: '#/components/schemas/Contact'
         '400':
           description: Invalid ID supplied
-        '404':
-          description: Pet not found
         '405':
           description: Validation exception
   # /Delete.php:
@@ -119,7 +120,7 @@ paths:
         '400':
           description: Invalid ID supplied
         '404':
-          description: Pet not found
+          description: Contact not found
         '405':
           description: Validation exception
 
@@ -138,10 +139,6 @@ paths:
       responses:
         '201':
           description: Successful creation
-        '400':
-          description: Invalid ID supplied
-        '404':
-          description: Pet not found
         '405':
           description: Validation exception
 
@@ -163,7 +160,7 @@ paths:
         '400':
           description: Invalid ID supplied
         '404':
-          description: Pet not found
+          description: User not found
         '405':
           description: Validation exception
 
@@ -187,11 +184,11 @@ components:
         firstName:
           type: string
           description: first name
-          example: "Thomas"
+          example: "Aaron"
         lastName:
           type: string
           description: last name
-          example: "Shelby"
+          example: "Haro"
         address:
           type: string
           description: Contact address
@@ -212,11 +209,11 @@ components:
         firstName:
           type: string
           description: first name
-          example: "Thomas"
+          example: "Aaron"
         lastName:
           type: string
           description: last name
-          example: "Shelby"
+          example: "Haro"
         address:
           type: string
           description: Contact address
@@ -227,11 +224,11 @@ components:
         firstName:
           type: string
           description: first name
-          example: "Thomas"
+          example: "Aaron"
         lastName:
           type: string
           description: last name
-          example: "Shelby"
+          example: "Haro"
         login:
           type: string
           description: username (email)
