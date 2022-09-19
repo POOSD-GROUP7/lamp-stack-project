@@ -132,7 +132,7 @@ function searchContact(searchTerm = "", keepSelectedContact = true) {
         contacts
           .sort((a, b) => a.firstName.localeCompare(b.firstName))
           .forEach((contact, index) => {
-            if (contact.id === selectedContactId) {
+            if (selectedContactId && (contact.id === selectedContactId)) {
               selectedContactIndex = index;
             }
             const listItem = `
@@ -425,6 +425,7 @@ function collapseContactDetails() {
   // De-select the selected contact
   selectedContactItem?.classList.remove("active");
   selectedContactItem = null;
+  selectedContactId = null;
 
   if (smallScreen) {
     expandSearch();
