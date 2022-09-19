@@ -117,6 +117,9 @@ function searchContact(searchTerm = "", keepSelectedContact = true) {
           // If there are no contacts, display a no contacts message
           contactsList.innerHTML = "<h3 style='align-self: center'>No contacts yet.</h3>";
         }
+
+        hideContactDetails();
+        selectedContactId = null;
       } else if (this.status === 200 || this.status === 201) {
         contacts = JSON.parse(xhr.responseText).results.map((contact) => {
           return {
