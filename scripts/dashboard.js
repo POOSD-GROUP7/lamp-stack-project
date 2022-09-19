@@ -90,6 +90,7 @@ const processSearchChange = debounce((value) => searchContact(value, !smallScree
  */
 function searchContact(searchTerm = "", keepSelectedContact = true) {
   const searchString = searchTerm?.trim();
+  searchInput.value = searchString;
 
   //get the string and format the search in JSON format
   let tmp = {search: searchString, userId: userId};
@@ -288,7 +289,7 @@ function deleteContact() {
       if (this.status === 200 || this.status === 201) {
         showSnackbar("The contact has been deleted");
         hideContactDetails();
-        searchContact();
+        searchContact(searchInput.value);
       } else {
         showSnackbar("The contact could not be deleted", "error");
       }
