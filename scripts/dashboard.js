@@ -223,6 +223,7 @@ function saveContact() {
     email: emailInput.value.trim() || "N/A",
     phone: phoneInput.value.trim() || "N/A",
     address: addressInput.value.trim() || "N/A",
+    createdAt: contacts[selectedContactItem.id].createdAt,
   };
   const oldContact = contacts[selectedContactItem.id];
 
